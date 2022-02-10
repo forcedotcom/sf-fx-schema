@@ -1,0 +1,110 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "OpenAPI Schema for Salesforce Functions invocation contexts",
+        "version": "1.0.0",
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "paths": {
+    },
+    "components": {
+        "schemas": {
+            "userContext": {
+                "type": "object",
+                "properties": {
+                    "orgId": {
+                        "type": "string"
+                    },
+                    "userId": {
+                        "type": "string"
+                    },
+                    "onBehalfOfUserId": {
+                        "type": "string"
+                    },
+                    "username": {
+                        "type": "string"
+                    },
+                    "salesforceBaseUrl": {
+                        "type": "string",
+                        "format": "uri"
+                    },
+                    "orgDomainUrl": {
+                        "type": "string",
+                        "format": "uri"
+                    }
+                },
+                "required": [
+                    "orgId",
+                    "userId",
+                    "username",
+                    "salesforceBaseUrl"
+                ]
+            },
+            "sfContext": {
+                "type": "object",
+                "properties": {
+                    "apiVersion": {
+                        "type": "string"
+                    },
+                    "payloadVersion": {
+                        "type": "string"
+                    },
+                    "userContext": {
+                        "$ref": "#/components/schemas/userContext"
+                    }
+                },
+                "required": [
+                    "apiVersion",
+                    "payloadVersion",
+                    "userContext"
+                ]
+            },
+            "sfFnContext": {
+                "type": "object",
+                "properties": {
+                    "accessToken": {
+                        "type": "string"
+                    },
+                    "functionInvocationId": {
+                        "type": "string"
+                    },
+                    "proxyClientToken": {
+                        "type": "string"
+                    },
+                    "functionName": {
+                        "type": "string"
+                    },
+                    "apexId": {
+                        "type": "string"
+                    },
+                    "apexFQN": {
+                        "type": "string"
+                    },
+                    "requestId": {
+                        "type": "string"
+                    },
+                    "resource": {
+                        "type": "string"
+                    },
+                    "asyncResponseCallbackPath": {
+                        "type": "string"
+                    },
+                    "deadline": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Deadline datetime (UTC) prior to which the Function request must complete",
+                        "example": "20220131T231901Z"
+                    }
+                },
+                "required": [
+                    "functionName",
+                    "requestId",
+                    "resource"
+                ]
+            }
+        }
+    }
+}

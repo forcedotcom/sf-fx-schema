@@ -1,0 +1,169 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.salesforce.functions</groupId>
+    <artifactId>sf-fx-schema</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <relativePath>..</relativePath>
+  </parent>
+  <artifactId>sf-fx-schema-java</artifactId>
+
+  <properties>
+    <gen-javadir>${project.build.directory}/generated-sources/openapi</gen-javadir>
+
+    <basePackage>com.salesforce.functions.context</basePackage>
+    <excludePackage>com.salesforce.functions.exclude</excludePackage>
+    <excludePkgPath>com/salesforce/functions/exclude</excludePkgPath>
+  </properties>
+
+  <dependencies>
+    <dependency>
+        <groupId>io.swagger</groupId>
+        <artifactId>swagger-annotations</artifactId>
+    </dependency>
+
+    <!-- JSON processing: jackson -->
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.datatype</groupId>
+        <artifactId>jackson-datatype-jsr310</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.openapitools</groupId>
+        <artifactId>jackson-databind-nullable</artifactId>
+    </dependency>
+
+    <!-- @Nullable annotation -->
+    <dependency>
+        <groupId>com.google.code.findbugs</groupId>
+        <artifactId>jsr305</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>jakarta.annotation</groupId>
+        <artifactId>jakarta.annotation-api</artifactId>
+        <scope>provided</scope>
+    </dependency>
+
+    <!-- test dependencies -->
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>codegen</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.openapitools</groupId>
+            <artifactId>openapi-generator-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>gen-java-openapi</id>
+                <phase>generate-sources</phase>
+                <goals>
+                  <goal>generate</goal>
+                </goals>
+                <configuration>
+                  <inputSpec>${project.parent.basedir}/schema.json</inputSpec>
+                  <output>${gen-javadir}</output>
+                  <generatorName>java</generatorName>
+                  <java8>true</java8>
+                  <dateLibrary>java8</dateLibrary>
+                  <library>native</library>
+                  <serializationLibrary>jackson</serializationLibrary>
+                  <apiPackage>${excludePackage}</apiPackage>
+                  <modelPackage>${basePackage}</modelPackage>
+                  <invokerPackage>${excludePackage}</invokerPackage>
+                  <licenseName>Apache 2.0</licenseName>
+                  <licenseUrl>https://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>gen-java-openapi-clean</id>
+                <phase>generate-sources</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <target>
+                    <delete includeEmptyDirs="true">
+                      <fileset dir="${gen-javadir}/src/main/java"
+                          includes="${excludePkgPath}/**" />
+                    </delete>
+                    <delete>
+                      <fileset dir="${gen-javadir}/src/main/java"
+                          includes="**/AbstractOpenApiSchema.java" />
+                    </delete>
+                    <move todir="${project.basedir}/src/main/java">
+                      <fileset dir="${gen-javadir}/src/main/java"
+                          includes="**/*.java" />
+                    </move>
+                  </target>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>cibuild</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>gen-java-javadoc-jar</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>gen-java-source-jar</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+</project>
