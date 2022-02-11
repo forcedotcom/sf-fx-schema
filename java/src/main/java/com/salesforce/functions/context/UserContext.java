@@ -29,8 +29,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 /**
- * UserContext
+ * Salesforce user/org context information
  */
+@ApiModel(description = "Salesforce user/org context information")
 @JsonPropertyOrder({
   UserContext.JSON_PROPERTY_ORG_ID,
   UserContext.JSON_PROPERTY_USER_ID,
@@ -39,7 +40,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   UserContext.JSON_PROPERTY_SALESFORCE_BASE_URL,
   UserContext.JSON_PROPERTY_ORG_DOMAIN_URL
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-10T13:20:46.373764-07:00[America/Denver]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-10T17:43:03.907379-07:00[America/Denver]")
 public class UserContext {
   public static final String JSON_PROPERTY_ORG_ID = "orgId";
   private String orgId;
@@ -68,11 +69,11 @@ public class UserContext {
   }
 
    /**
-   * Get orgId
+   * 18-character unique Org identifier
    * @return orgId
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "18-character unique Org identifier")
   @JsonProperty(JSON_PROPERTY_ORG_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -94,11 +95,11 @@ public class UserContext {
   }
 
    /**
-   * Get userId
+   * 18-character unique User identifier
    * @return userId
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "18-character unique User identifier")
   @JsonProperty(JSON_PROPERTY_USER_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -120,11 +121,11 @@ public class UserContext {
   }
 
    /**
-   * Get onBehalfOfUserId
+   * Optional 18-character unique User identifier invoked-on-behalf-of
    * @return onBehalfOfUserId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Optional 18-character unique User identifier invoked-on-behalf-of")
   @JsonProperty(JSON_PROPERTY_ON_BEHALF_OF_USER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -146,11 +147,11 @@ public class UserContext {
   }
 
    /**
-   * Get username
+   * Unique username
    * @return username
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "Unique username")
   @JsonProperty(JSON_PROPERTY_USERNAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -172,11 +173,11 @@ public class UserContext {
   }
 
    /**
-   * Get salesforceBaseUrl
+   * Base URL of Salesforce appserver that invoked function
    * @return salesforceBaseUrl
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "Base URL of Salesforce appserver that invoked function")
   @JsonProperty(JSON_PROPERTY_SALESFORCE_BASE_URL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -198,11 +199,11 @@ public class UserContext {
   }
 
    /**
-   * Get orgDomainUrl
+   * MyDomain URL of Salesforce appserver that invoked function
    * @return orgDomainUrl
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "MyDomain URL of Salesforce appserver that invoked function")
   @JsonProperty(JSON_PROPERTY_ORG_DOMAIN_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

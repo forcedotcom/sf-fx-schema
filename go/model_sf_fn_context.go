@@ -15,16 +15,27 @@ import (
 	"time"
 )
 
-// SfFnContext struct for SfFnContext
+// SfFnContext Salesforce Function invocation context information
 type SfFnContext struct {
+	// In-band access token to use for local Functions testing, not populated in production calls
 	AccessToken *string `json:"accessToken,omitempty"`
+	// Unique function invocation identifier, only populated for async function invocations
 	FunctionInvocationId *string `json:"functionInvocationId,omitempty"`
+	// (internal use only)
+	ProxyClientToken *string `json:"proxyClientToken,omitempty"`
+	// Qualified function name in the form <project>.<fnname> or <namespace>.<project>.<fnname>
 	FunctionName string `json:"functionName"`
+	// Unique Apex class identifier that invoked this function
 	ApexId *string `json:"apexId,omitempty"`
+	// Apex qualified name that invoked this function in the form Pathname/filename.cls:linenum
 	ApexFQN *string `json:"apexFQN,omitempty"`
+	// Unique function request identifier
 	RequestId string `json:"requestId"`
+	// Resource identifier of function being invoked
 	Resource string `json:"resource"`
-	// Deadline datetime (UTC) prior to which the Function request must complete
+	// (internal use only)
+	AsyncResponseCallbackPath *string `json:"asyncResponseCallbackPath,omitempty"`
+	// Deadline datetime (UTC) prior to which the Function request must complete: yyyy-MM-dd'T'HH:mm:ssZ
 	Deadline *time.Time `json:"deadline,omitempty"`
 }
 
@@ -110,6 +121,38 @@ func (o *SfFnContext) HasFunctionInvocationId() bool {
 // SetFunctionInvocationId gets a reference to the given string and assigns it to the FunctionInvocationId field.
 func (o *SfFnContext) SetFunctionInvocationId(v string) {
 	o.FunctionInvocationId = &v
+}
+
+// GetProxyClientToken returns the ProxyClientToken field value if set, zero value otherwise.
+func (o *SfFnContext) GetProxyClientToken() string {
+	if o == nil || o.ProxyClientToken == nil {
+		var ret string
+		return ret
+	}
+	return *o.ProxyClientToken
+}
+
+// GetProxyClientTokenOk returns a tuple with the ProxyClientToken field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SfFnContext) GetProxyClientTokenOk() (*string, bool) {
+	if o == nil || o.ProxyClientToken == nil {
+		return nil, false
+	}
+	return o.ProxyClientToken, true
+}
+
+// HasProxyClientToken returns a boolean if a field has been set.
+func (o *SfFnContext) HasProxyClientToken() bool {
+	if o != nil && o.ProxyClientToken != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProxyClientToken gets a reference to the given string and assigns it to the ProxyClientToken field.
+func (o *SfFnContext) SetProxyClientToken(v string) {
+	o.ProxyClientToken = &v
 }
 
 // GetFunctionName returns the FunctionName field value
@@ -248,6 +291,38 @@ func (o *SfFnContext) SetResource(v string) {
 	o.Resource = v
 }
 
+// GetAsyncResponseCallbackPath returns the AsyncResponseCallbackPath field value if set, zero value otherwise.
+func (o *SfFnContext) GetAsyncResponseCallbackPath() string {
+	if o == nil || o.AsyncResponseCallbackPath == nil {
+		var ret string
+		return ret
+	}
+	return *o.AsyncResponseCallbackPath
+}
+
+// GetAsyncResponseCallbackPathOk returns a tuple with the AsyncResponseCallbackPath field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SfFnContext) GetAsyncResponseCallbackPathOk() (*string, bool) {
+	if o == nil || o.AsyncResponseCallbackPath == nil {
+		return nil, false
+	}
+	return o.AsyncResponseCallbackPath, true
+}
+
+// HasAsyncResponseCallbackPath returns a boolean if a field has been set.
+func (o *SfFnContext) HasAsyncResponseCallbackPath() bool {
+	if o != nil && o.AsyncResponseCallbackPath != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAsyncResponseCallbackPath gets a reference to the given string and assigns it to the AsyncResponseCallbackPath field.
+func (o *SfFnContext) SetAsyncResponseCallbackPath(v string) {
+	o.AsyncResponseCallbackPath = &v
+}
+
 // GetDeadline returns the Deadline field value if set, zero value otherwise.
 func (o *SfFnContext) GetDeadline() time.Time {
 	if o == nil || o.Deadline == nil {
@@ -288,6 +363,9 @@ func (o SfFnContext) MarshalJSON() ([]byte, error) {
 	if o.FunctionInvocationId != nil {
 		toSerialize["functionInvocationId"] = o.FunctionInvocationId
 	}
+	if o.ProxyClientToken != nil {
+		toSerialize["proxyClientToken"] = o.ProxyClientToken
+	}
 	if true {
 		toSerialize["functionName"] = o.FunctionName
 	}
@@ -302,6 +380,9 @@ func (o SfFnContext) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["resource"] = o.Resource
+	}
+	if o.AsyncResponseCallbackPath != nil {
+		toSerialize["asyncResponseCallbackPath"] = o.AsyncResponseCallbackPath
 	}
 	if o.Deadline != nil {
 		toSerialize["deadline"] = o.Deadline

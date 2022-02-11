@@ -14,13 +14,19 @@ import (
 	"encoding/json"
 )
 
-// UserContext struct for UserContext
+// UserContext Salesforce user/org context information
 type UserContext struct {
+	// 18-character unique Org identifier
 	OrgId string `json:"orgId"`
+	// 18-character unique User identifier
 	UserId string `json:"userId"`
+	// Optional 18-character unique User identifier invoked-on-behalf-of
 	OnBehalfOfUserId *string `json:"onBehalfOfUserId,omitempty"`
+	// Unique username
 	Username string `json:"username"`
+	// Base URL of Salesforce appserver that invoked function
 	SalesforceBaseUrl string `json:"salesforceBaseUrl"`
+	// MyDomain URL of Salesforce appserver that invoked function
 	OrgDomainUrl *string `json:"orgDomainUrl,omitempty"`
 }
 

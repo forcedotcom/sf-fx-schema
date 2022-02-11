@@ -45,7 +45,7 @@ public class ContextUtil {
 
     // Thread-safe decoder/encoder instances
     static final DateTimeFormatter ODT_FMT = new DateTimeFormatterBuilder()
-            .appendPattern("yyyyMMdd'T'HHmmssX")
+            .appendPattern("yyyy-MM-dd'T'HH:mm:ssX")
             .toFormatter();
     static final SimpleModule ODT_PARSE_MOD = new SimpleModule()
     .addDeserializer(OffsetDateTime.class, new JsonDeserializer<OffsetDateTime>() {

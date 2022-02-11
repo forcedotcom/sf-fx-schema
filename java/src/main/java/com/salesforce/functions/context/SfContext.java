@@ -29,14 +29,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 /**
- * SfContext
+ * Salesforce context information
  */
+@ApiModel(description = "Salesforce context information")
 @JsonPropertyOrder({
   SfContext.JSON_PROPERTY_API_VERSION,
   SfContext.JSON_PROPERTY_PAYLOAD_VERSION,
   SfContext.JSON_PROPERTY_USER_CONTEXT
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-10T13:20:46.373764-07:00[America/Denver]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-10T17:43:03.907379-07:00[America/Denver]")
 public class SfContext {
   public static final String JSON_PROPERTY_API_VERSION = "apiVersion";
   private String apiVersion;
@@ -56,11 +57,11 @@ public class SfContext {
   }
 
    /**
-   * Get apiVersion
+   * Salesforce API Version in form like: 53.0
    * @return apiVersion
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "Salesforce API Version in form like: 53.0")
   @JsonProperty(JSON_PROPERTY_API_VERSION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -82,11 +83,11 @@ public class SfContext {
   }
 
    /**
-   * Get payloadVersion
+   * Payload version indicating JSON-format
    * @return payloadVersion
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "Payload version indicating JSON-format")
   @JsonProperty(JSON_PROPERTY_PAYLOAD_VERSION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 

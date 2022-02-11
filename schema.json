@@ -14,26 +14,33 @@
         "schemas": {
             "userContext": {
                 "type": "object",
+                "description": "Salesforce user/org context information",
                 "properties": {
                     "orgId": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "18-character unique Org identifier"
                     },
                     "userId": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "18-character unique User identifier"
                     },
                     "onBehalfOfUserId": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Optional 18-character unique User identifier invoked-on-behalf-of"
                     },
                     "username": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Unique username"
                     },
                     "salesforceBaseUrl": {
                         "type": "string",
-                        "format": "uri"
+                        "format": "uri",
+                        "description": "Base URL of Salesforce appserver that invoked function"
                     },
                     "orgDomainUrl": {
                         "type": "string",
-                        "format": "uri"
+                        "format": "uri",
+                        "description": "MyDomain URL of Salesforce appserver that invoked function"
                     }
                 },
                 "required": [
@@ -45,12 +52,15 @@
             },
             "sfContext": {
                 "type": "object",
+                "description": "Salesforce context information",
                 "properties": {
                     "apiVersion": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Salesforce API Version in form like: 53.0"
                     },
                     "payloadVersion": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Payload version indicating JSON-format"
                     },
                     "userContext": {
                         "$ref": "#/components/schemas/userContext"
@@ -64,39 +74,49 @@
             },
             "sfFnContext": {
                 "type": "object",
+                "description": "Salesforce Function invocation context information",
                 "properties": {
                     "accessToken": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "In-band access token to use for local Functions testing, not populated in production calls"
                     },
                     "functionInvocationId": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Unique function invocation identifier, only populated for async function invocations"
                     },
                     "proxyClientToken": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "(internal use only)"
                     },
                     "functionName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Qualified function name in the form <project>.<fnname> or <namespace>.<project>.<fnname>"
                     },
                     "apexId": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Unique Apex class identifier that invoked this function"
                     },
                     "apexFQN": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Apex qualified name that invoked this function in the form Pathname/filename.cls:linenum"
                     },
                     "requestId": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Unique function request identifier"
                     },
                     "resource": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Resource identifier of function being invoked"
                     },
                     "asyncResponseCallbackPath": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "(internal use only)"
                     },
                     "deadline": {
                         "type": "string",
                         "format": "date-time",
-                        "description": "Deadline datetime (UTC) prior to which the Function request must complete",
-                        "example": "20220131T231901Z"
+                        "description": "Deadline datetime (UTC) prior to which the Function request must complete: yyyy-MM-dd'T'HH:mm:ssZ",
+                        "example": "2022-01-31T23:19:01Z"
                     }
                 },
                 "required": [

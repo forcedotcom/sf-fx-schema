@@ -144,118 +144,6 @@
     </profile>
 
     <profile>
-      <id>gen-java</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.openapitools</groupId>
-            <artifactId>openapi-generator-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>gen-java-openapi</id>
-                <phase>generate-sources</phase>
-                <goals>
-                  <goal>generate</goal>
-                </goals>
-                <configuration>
-                  <inputSpec>${project.basedir}/schema.json</inputSpec>
-                  <output>${gen-javadir}</output>
-                  <generatorName>java</generatorName>
-                  <java8>true</java8>
-                  <dateLibrary>java8</dateLibrary>
-                  <library>native</library>
-                  <serializationLibrary>jackson</serializationLibrary>
-                  <apiPackage>${excludePackage}</apiPackage>
-                  <modelPackage>${basePackage}</modelPackage>
-                  <invokerPackage>${excludePackage}</invokerPackage>
-                  <licenseName>Apache 2.0</licenseName>
-                  <licenseUrl>https://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <artifactId>maven-antrun-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>gen-java-openapi-clean</id>
-                <phase>generate-sources</phase>
-                <goals>
-                  <goal>run</goal>
-                </goals>
-                <configuration>
-                  <target>
-                    <delete includeEmptyDirs="true">
-                      <fileset dir="${gen-javadir}/src/main/java"
-                          includes="${excludePkgPath}/**" />
-                    </delete>
-                    <delete>
-                      <fileset dir="${gen-javadir}/src/main/java"
-                          includes="**/AbstractOpenApiSchema.java" />
-                    </delete>
-                    <move todir="${project.basedir}/src/main/java">
-                      <fileset dir="${gen-javadir}/src/main/java"
-                          includes="**/*.java" />
-                    </move>
-                  </target>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <profile>
-      <id>gen-go</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.openapitools</groupId>
-            <artifactId>openapi-generator-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>gen-go-openapi</id>
-                <phase>process-sources</phase>
-                <goals>
-                  <goal>generate</goal>
-                </goals>
-                <configuration>
-                  <inputSpec>${project.basedir}/schema.json</inputSpec>
-                  <output>${gen-godir}</output>
-                  <generatorName>go</generatorName>
-                  <disallowAdditionalPropertiesIfNotPresent>false</disallowAdditionalPropertiesIfNotPresent>
-                  <packageName>sffxschema</packageName>
-                  <packageVersion>${project.version}</packageVersion>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <artifactId>maven-antrun-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>gen-go-openapi-clean</id>
-                <phase>process-sources</phase>
-                <goals>
-                  <goal>run</goal>
-                </goals>
-                <configuration>
-                  <target>
-                    <move todir="${project.basedir}">
-                      <fileset dir="${gen-godir}"
-                          includes="model_*.go" />
-                    </move>
-                  </target>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <profile>
       <id>gen-ts</id>
       <build>
         <plugins>
@@ -308,7 +196,7 @@
 
   <modules>
     <module>java</module>
-    <!--module>go</module-->
+    <module>go</module>
     <!--module>node</module-->
   </modules>
 

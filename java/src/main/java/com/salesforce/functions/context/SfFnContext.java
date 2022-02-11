@@ -29,8 +29,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 /**
- * SfFnContext
+ * Salesforce Function invocation context information
  */
+@ApiModel(description = "Salesforce Function invocation context information")
 @JsonPropertyOrder({
   SfFnContext.JSON_PROPERTY_ACCESS_TOKEN,
   SfFnContext.JSON_PROPERTY_FUNCTION_INVOCATION_ID,
@@ -43,7 +44,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   SfFnContext.JSON_PROPERTY_ASYNC_RESPONSE_CALLBACK_PATH,
   SfFnContext.JSON_PROPERTY_DEADLINE
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-10T13:20:46.373764-07:00[America/Denver]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-10T17:43:03.907379-07:00[America/Denver]")
 public class SfFnContext {
   public static final String JSON_PROPERTY_ACCESS_TOKEN = "accessToken";
   private String accessToken;
@@ -84,11 +85,11 @@ public class SfFnContext {
   }
 
    /**
-   * Get accessToken
+   * In-band access token to use for local Functions testing, not populated in production calls
    * @return accessToken
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "In-band access token to use for local Functions testing, not populated in production calls")
   @JsonProperty(JSON_PROPERTY_ACCESS_TOKEN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -110,11 +111,11 @@ public class SfFnContext {
   }
 
    /**
-   * Get functionInvocationId
+   * Unique function invocation identifier, only populated for async function invocations
    * @return functionInvocationId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Unique function invocation identifier, only populated for async function invocations")
   @JsonProperty(JSON_PROPERTY_FUNCTION_INVOCATION_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -136,11 +137,11 @@ public class SfFnContext {
   }
 
    /**
-   * Get proxyClientToken
+   * (internal use only)
    * @return proxyClientToken
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "(internal use only)")
   @JsonProperty(JSON_PROPERTY_PROXY_CLIENT_TOKEN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -162,11 +163,11 @@ public class SfFnContext {
   }
 
    /**
-   * Get functionName
+   * Qualified function name in the form &lt;project&gt;.&lt;fnname&gt; or &lt;namespace&gt;.&lt;project&gt;.&lt;fnname&gt;
    * @return functionName
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "Qualified function name in the form <project>.<fnname> or <namespace>.<project>.<fnname>")
   @JsonProperty(JSON_PROPERTY_FUNCTION_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -188,11 +189,11 @@ public class SfFnContext {
   }
 
    /**
-   * Get apexId
+   * Unique Apex class identifier that invoked this function
    * @return apexId
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Unique Apex class identifier that invoked this function")
   @JsonProperty(JSON_PROPERTY_APEX_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -214,11 +215,11 @@ public class SfFnContext {
   }
 
    /**
-   * Get apexFQN
+   * Apex qualified name that invoked this function in the form Pathname/filename.cls:linenum
    * @return apexFQN
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Apex qualified name that invoked this function in the form Pathname/filename.cls:linenum")
   @JsonProperty(JSON_PROPERTY_APEX_F_Q_N)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -240,11 +241,11 @@ public class SfFnContext {
   }
 
    /**
-   * Get requestId
+   * Unique function request identifier
    * @return requestId
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "Unique function request identifier")
   @JsonProperty(JSON_PROPERTY_REQUEST_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -266,11 +267,11 @@ public class SfFnContext {
   }
 
    /**
-   * Get resource
+   * Resource identifier of function being invoked
    * @return resource
   **/
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "Resource identifier of function being invoked")
   @JsonProperty(JSON_PROPERTY_RESOURCE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -292,11 +293,11 @@ public class SfFnContext {
   }
 
    /**
-   * Get asyncResponseCallbackPath
+   * (internal use only)
    * @return asyncResponseCallbackPath
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "(internal use only)")
   @JsonProperty(JSON_PROPERTY_ASYNC_RESPONSE_CALLBACK_PATH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -318,11 +319,11 @@ public class SfFnContext {
   }
 
    /**
-   * Deadline datetime (UTC) prior to which the Function request must complete
+   * Deadline datetime (UTC) prior to which the Function request must complete: yyyy-MM-dd&#39;T&#39;HH:mm:ssZ
    * @return deadline
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Deadline datetime (UTC) prior to which the Function request must complete")
+  @ApiModelProperty(example = "2022-01-31T23:19:01Z", value = "Deadline datetime (UTC) prior to which the Function request must complete: yyyy-MM-dd'T'HH:mm:ssZ")
   @JsonProperty(JSON_PROPERTY_DEADLINE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 

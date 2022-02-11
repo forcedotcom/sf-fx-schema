@@ -14,9 +14,11 @@ import (
 	"encoding/json"
 )
 
-// SfContext struct for SfContext
+// SfContext Salesforce context information
 type SfContext struct {
+	// Salesforce API Version in form like: 53.0
 	ApiVersion string `json:"apiVersion"`
+	// Payload version indicating JSON-format
 	PayloadVersion string `json:"payloadVersion"`
 	UserContext UserContext `json:"userContext"`
 }
