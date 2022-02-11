@@ -197,7 +197,7 @@
   <modules>
     <module>java</module>
     <module>go</module>
-    <!--module>node</module-->
+    <module>node</module>
   </modules>
 
 </project>

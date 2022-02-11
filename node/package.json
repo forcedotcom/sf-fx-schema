@@ -1,0 +1,22 @@
+{
+  "name": "sf-fx-schema-node",
+  "version": "1.0.0",
+  "type": "mnodule",
+  "description": "Salesforce Functions schema-generated request context and extra info classes",
+  "author": "salesforce.com, inc.",
+  "license": "Apache 2.0",
+  "main": "dist/index.js",
+  "engines": {
+    "node": "^16.9"
+  },
+  "scripts": {
+    "build": "npx tsc --outDir dist/ src/*.ts",
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "@types/mocha": "^8.2.2",
+    "@types/node": "^15.0.2",
+    "mocha": "^8.4.0",
+    "typescript": "^4.5.5"
+  }
+}
