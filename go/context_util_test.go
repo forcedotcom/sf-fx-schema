@@ -38,6 +38,13 @@ const CeSfFnContext = "eyJhY2Nlc3NUb2tlbiI6IjAwRHh4MDAwMDAwNklZSiFBUUVBUU5SYUFRR
 	"hc2luLWRkMWRkMS5ldmVyZ3JlZW4uc3BhY2UiLCJhc3luY1Jlc3BvbnNlQ2FsbGJhY2tQYXRoIjoiL3Nlcn" +
 	"ZpY2VzL2Z1bmN0aW9uL2FyaCIsImRlYWRsaW5lIjoiMjAyMi0wMi0xMFQxNzo1OToxMVoifQ=="
 
+const EncodedExtraInfo = "%7B%22requestId%22%3A%2200Dxx0000006IYJEA2-9md6u0" +
+	"000000LfxAAE-1a893e50%22%2C%22resource%22%3A%22testfn1-anteater-d99.basin-dd1dd1.ev" +
+	"ergreen.space%22%2C%22source%22%3A%22com/example/fn/MyFunc.java%3A29%22%2C%22execTi" +
+	"meMs%22%3A101.393%2C%22statusCode%22%3A500%2C%22isFunctionError%22%3Atrue%2C%22stac" +
+	"k%22%3A%22com/example/fn/MyFunc.java%3A29%5Cn%20java/lang/RuntimeException.java%3A1" +
+	"11%22%7D"
+
 func TestSfContext(t *testing.T) {
 	var ctx *SfContext
 	var err error
@@ -206,6 +213,77 @@ func TestSfFnContext(t *testing.T) {
 		if i == 0 {
 			var reEncoded string
 			reEncoded, err = EncodeSfFnContext(ctx)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			// Replace next iteration through loop with re-encoded value
+			uu[1].encoded = reEncoded
+		}
+	}
+}
+
+func TestExtraInfo(t *testing.T) {
+	var xi *ResponseExtraInfo
+	var err error
+	var expStr string
+	var gotStr string
+
+	uu := []struct {
+		encoded string
+	}{
+		{encoded: EncodedExtraInfo},
+		{encoded: "-replaced by first run-"},
+	}
+	for i, u := range uu {
+		xi, err = DecodeExtraInfo(u.encoded)
+		if err != nil {
+			t.Fatalf("[%d] err=%v", i, err)
+		}
+		if xi == nil {
+			t.Fatalf("[%d] expected non-nil decode, got: %v", i, xi)
+		}
+		expStr = "00Dxx0000006IYJEA2-9md6u0000000LfxAAE-1a893e50"
+		gotStr = xi.GetRequestId()
+		if gotStr != expStr {
+			t.Errorf("[%d] expected %s=%s, got=%s", i, "requestId", expStr, gotStr)
+		}
+		expStr = "testfn1-anteater-d99.basin-dd1dd1.evergreen.space"
+		gotStr = xi.GetResource()
+		if gotStr != expStr {
+			t.Errorf("[%d] expected %s=%s, got=%s", i, "resource", expStr, gotStr)
+		}
+		expStr = "com/example/fn/MyFunc.java:29"
+		gotStr = xi.GetSource()
+		if gotStr != expStr {
+			t.Errorf("[%d] expected %s=%s, got=%s", i, "source", expStr, gotStr)
+		}
+		var expNum float32 = 101.393
+		gotNum := xi.GetExecTimeMs() // hmm, no golang equivalent of BigDecimal, Grumble grumble.
+		if expNum != gotNum {
+			t.Errorf("[%d] expected %s=%g, got=%g", i, "execTimeMs", expNum, gotNum)
+		}
+		var expInt int32 = 500
+		gotInt := xi.GetStatusCode()
+		if expInt != gotInt {
+			t.Errorf("[%d] expected %s=%d, got=%d", i, "statusCode", expInt, gotInt)
+		}
+		var expBool bool = true
+		gotBool := xi.GetIsFunctionError()
+		if expBool != gotBool {
+			t.Errorf("[%d] expected %s=%v, got=%v", i, "statusCode", expBool, gotBool)
+		}
+		expStr = "com/example/fn/MyFunc.java:29\n java/lang/RuntimeException.java:111"
+		gotStr = xi.GetStack()
+		if gotStr != expStr {
+			t.Errorf("[%d] expected %s=%s, got=%s", i, "stack", expStr, gotStr)
+		}
+
+		// In golang, JSON serialization does not maintain ordering so cannot do direct String compare
+		// so need to Encode/Decode/compare contents
+		if i == 0 {
+			var reEncoded string
+			reEncoded, err = EncodeExtraInfo(xi)
 			if err != nil {
 				t.Fatal(err)
 			}

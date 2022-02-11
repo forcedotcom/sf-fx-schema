@@ -16,6 +16,8 @@
 package com.salesforce.functions.context;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.text.ParsePosition;
 import java.time.Instant;
 import java.time.OffsetDateTime;
@@ -43,31 +45,38 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
  */
 public class ContextUtil {
 
-    // Thread-safe decoder/encoder instances
+    /** Thread-safe date/time formatter to format OffsetDateTime properties. */
     static final DateTimeFormatter ODT_FMT = new DateTimeFormatterBuilder()
             .appendPattern("yyyy-MM-dd'T'HH:mm:ssX")
             .toFormatter();
+
+    /** Thread-safe JSON (de-)serializer module for OffsetDateTime to use in ObjectMapper. */
     static final SimpleModule ODT_PARSE_MOD = new SimpleModule()
-    .addDeserializer(OffsetDateTime.class, new JsonDeserializer<OffsetDateTime>() {
-        @Override
-        public OffsetDateTime deserialize(JsonParser parser, DeserializationContext dctx) throws IOException {            
-            return ContextUtil.parseOdt(parser.getText());
-        }
+            .addDeserializer(OffsetDateTime.class, new JsonDeserializer<OffsetDateTime>() {
+                @Override
+                public OffsetDateTime deserialize(JsonParser parser, DeserializationContext dctx) throws IOException {            
+                    return ContextUtil.parseOdt(parser.getText());
+                }
 
-    }).addSerializer(OffsetDateTime.class, new JsonSerializer<OffsetDateTime>() {
-        @Override
-        public void serialize(OffsetDateTime odt, JsonGenerator jg, SerializerProvider sp) throws IOException {
-            jg.writeString(ContextUtil.formatOdt(odt));
-        }
-    });
+            }).addSerializer(OffsetDateTime.class, new JsonSerializer<OffsetDateTime>() {
+                @Override
+                public void serialize(OffsetDateTime odt, JsonGenerator jg, SerializerProvider sp) throws IOException {
+                    jg.writeString(ContextUtil.formatOdt(odt));
+                }
+            });
 
+    /** Json parser/serializer configured with options to allow unknown properties and handle date-time as OffsetDateTime */
     static final ObjectMapper OBJECT_MAPPER = JsonMapper.builder()
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
             .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
             .addModule(new JavaTimeModule())
             .addModule(ODT_PARSE_MOD)
             .build();
+
+    /** Thread-safe Base64 encoder. */
     static final Base64.Encoder B64_ENCODER = Base64.getEncoder();
+
+    /** Thread-safe Base64 decoder. */
     static final Base64.Decoder B64_DECODER = Base64.getDecoder();
 
     // Static methods only, no need to construct.
@@ -110,6 +119,38 @@ public class ContextUtil {
      */
     public static String encodeSfFnContext(SfFnContext obj) {
         return encodeInternal(obj);
+    }
+
+    /**
+     * Decode a ResponseExtraInfo from its URL-encoded UTF-8 JSON string.
+     * Note use of URL encoding for this object rather than base64.
+     * @param urlEncStr URL-encoded UTF-8 string.
+     * @return decoded object if input is non-empty/non-null, Null if given null/empty input.
+     * @throws IOException if malformed JSON or URL-encoding.
+     */
+    public static ResponseExtraInfo decodeExtraInfo(String urlEncStr) throws IOException {
+        if (urlEncStr == null || urlEncStr.trim().length() == 0) {
+            return null;
+        }
+        String decoded = URLDecoder.decode(urlEncStr, "UTF-8");
+        return OBJECT_MAPPER.readValue(decoded, ResponseExtraInfo.class);
+    }
+
+    /**
+     * Encode a ResponseExtraInfo to URL-encoded UTF-8 JSON.
+     * @param obj Response Extra Info object.
+     * @return URL-encoded UTF-9 string if input is non-null.  Null if given null input.
+     */
+    public static String encodeExtraInfo(ResponseExtraInfo obj) {
+        if (obj == null) {
+            return null;
+        }
+        try {
+            String jsonStr = OBJECT_MAPPER.writeValueAsString(obj);
+            return URLEncoder.encode(jsonStr, "UTF-8");
+        } catch (IOException ex) {
+            throw new RuntimeException("Unable to encode JSON", ex);
+        }
     }
 
     private static String encodeInternal(Object obj) {

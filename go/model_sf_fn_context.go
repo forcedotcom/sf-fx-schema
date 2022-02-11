@@ -32,7 +32,7 @@ type SfFnContext struct {
 	// Unique function request identifier
 	RequestId string `json:"requestId"`
 	// Resource identifier of function being invoked
-	Resource string `json:"resource"`
+	Resource *string `json:"resource,omitempty"`
 	// (internal use only)
 	AsyncResponseCallbackPath *string `json:"asyncResponseCallbackPath,omitempty"`
 	// Deadline datetime (UTC) prior to which the Function request must complete: yyyy-MM-dd'T'HH:mm:ssZ
@@ -43,11 +43,10 @@ type SfFnContext struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSfFnContext(functionName string, requestId string, resource string) *SfFnContext {
+func NewSfFnContext(functionName string, requestId string) *SfFnContext {
 	this := SfFnContext{}
 	this.FunctionName = functionName
 	this.RequestId = requestId
-	this.Resource = resource
 	return &this
 }
 
@@ -267,28 +266,36 @@ func (o *SfFnContext) SetRequestId(v string) {
 	o.RequestId = v
 }
 
-// GetResource returns the Resource field value
+// GetResource returns the Resource field value if set, zero value otherwise.
 func (o *SfFnContext) GetResource() string {
-	if o == nil {
+	if o == nil || o.Resource == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Resource
+	return *o.Resource
 }
 
-// GetResourceOk returns a tuple with the Resource field value
+// GetResourceOk returns a tuple with the Resource field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SfFnContext) GetResourceOk() (*string, bool) {
-	if o == nil  {
+	if o == nil || o.Resource == nil {
 		return nil, false
 	}
-	return &o.Resource, true
+	return o.Resource, true
 }
 
-// SetResource sets field value
+// HasResource returns a boolean if a field has been set.
+func (o *SfFnContext) HasResource() bool {
+	if o != nil && o.Resource != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetResource gets a reference to the given string and assigns it to the Resource field.
 func (o *SfFnContext) SetResource(v string) {
-	o.Resource = v
+	o.Resource = &v
 }
 
 // GetAsyncResponseCallbackPath returns the AsyncResponseCallbackPath field value if set, zero value otherwise.
@@ -378,7 +385,7 @@ func (o SfFnContext) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["requestId"] = o.RequestId
 	}
-	if true {
+	if o.Resource != nil {
 		toSerialize["resource"] = o.Resource
 	}
 	if o.AsyncResponseCallbackPath != nil {

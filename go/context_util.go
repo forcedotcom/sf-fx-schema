@@ -18,6 +18,7 @@ package sffxschema
 import (
 	"encoding/base64"
 	"encoding/json"
+	"net/url"
 	"strings"
 )
 
@@ -34,7 +35,14 @@ func DecodeSfContext(base64Str string) (*SfContext, error) {
 }
 
 func EncodeSfContext(sfcontext *SfContext) (string, error) {
-	return encodeInternal(sfcontext)
+	if sfcontext == nil {
+		return "", nil
+	}
+	bytes, err := sfcontext.MarshalJSON()
+	if err != nil {
+		return "", err
+	}
+	return base64.StdEncoding.EncodeToString(bytes), nil
 }
 
 func DecodeSfFnContext(base64Str string) (*SfFnContext, error) {
@@ -50,7 +58,41 @@ func DecodeSfFnContext(base64Str string) (*SfFnContext, error) {
 }
 
 func EncodeSfFnContext(sffncontext *SfFnContext) (string, error) {
-	return encodeInternal(sffncontext)
+	if sffncontext == nil {
+		return "", nil
+	}
+	bytes, err := sffncontext.MarshalJSON()
+	if err != nil {
+		return "", err
+	}
+	return base64.StdEncoding.EncodeToString(bytes), nil
+}
+
+func DecodeExtraInfo(urlEncStr string) (*ResponseExtraInfo, error) {
+	if len(strings.TrimSpace(urlEncStr)) == 0 {
+		return nil, nil
+	}
+	decoded, err := url.QueryUnescape(urlEncStr)
+	if err != nil {
+		return nil, err
+	}
+	targetObj := &ResponseExtraInfo{}
+	err = json.Unmarshal([]byte(decoded), targetObj)
+	if err != nil {
+		return nil, err
+	}
+	return targetObj, nil
+}
+
+func EncodeExtraInfo(extraInfo *ResponseExtraInfo) (string, error) {
+	if extraInfo == nil {
+		return "", nil
+	}
+	bytes, err := extraInfo.MarshalJSON()
+	if err != nil {
+		return "", err
+	}
+	return url.QueryEscape(string(bytes)), nil
 }
 
 func decodeInternal(base64Str string, targetCtx interface{}) error {
@@ -65,17 +107,4 @@ func decodeInternal(base64Str string, targetCtx interface{}) error {
 		return err
 	}
 	return nil
-}
-
-func encodeInternal(sfXtn interface{}) (string, error) {
-	if sfXtn == nil {
-		return "", nil
-	}
-	var bytes []byte
-	var err error
-	bytes, err = json.Marshal(sfXtn)
-	if err != nil {
-		return "", err
-	}
-	return base64.StdEncoding.EncodeToString(bytes), nil
 }

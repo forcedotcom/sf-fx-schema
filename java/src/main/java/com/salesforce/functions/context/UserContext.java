@@ -40,7 +40,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   UserContext.JSON_PROPERTY_SALESFORCE_BASE_URL,
   UserContext.JSON_PROPERTY_ORG_DOMAIN_URL
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-10T17:43:03.907379-07:00[America/Denver]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-11T09:34:01.344279-07:00[America/Denver]")
 public class UserContext {
   public static final String JSON_PROPERTY_ORG_ID = "orgId";
   private String orgId;

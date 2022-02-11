@@ -44,7 +44,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   SfFnContext.JSON_PROPERTY_ASYNC_RESPONSE_CALLBACK_PATH,
   SfFnContext.JSON_PROPERTY_DEADLINE
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-10T17:43:03.907379-07:00[America/Denver]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-11T09:34:01.344279-07:00[America/Denver]")
 public class SfFnContext {
   public static final String JSON_PROPERTY_ACCESS_TOKEN = "accessToken";
   private String accessToken;
@@ -270,10 +270,10 @@ public class SfFnContext {
    * Resource identifier of function being invoked
    * @return resource
   **/
-  @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Resource identifier of function being invoked")
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Resource identifier of function being invoked")
   @JsonProperty(JSON_PROPERTY_RESOURCE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getResource() {
     return resource;
@@ -281,7 +281,7 @@ public class SfFnContext {
 
 
   @JsonProperty(JSON_PROPERTY_RESOURCE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setResource(String resource) {
     this.resource = resource;
   }

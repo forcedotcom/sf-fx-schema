@@ -89,6 +89,7 @@
                   <java8>true</java8>
                   <dateLibrary>java8</dateLibrary>
                   <library>native</library>
+                  <hideGenerationTimestamp>true</hideGenerationTimestamp>
                   <serializationLibrary>jackson</serializationLibrary>
                   <apiPackage>${excludePackage}</apiPackage>
                   <modelPackage>${basePackage}</modelPackage>

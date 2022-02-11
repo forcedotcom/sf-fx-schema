@@ -121,8 +121,44 @@
                 },
                 "required": [
                     "functionName",
-                    "requestId",
-                    "resource"
+                    "requestId"
+                ]
+            },
+            "responseExtraInfo": {
+                "type": "object",
+                "description": "Extra response out-of-band information returned from function invocation",
+                "properties": {
+                    "requestId": {
+                        "type": "string",
+                        "description": "Unique function request identifier"
+                    },
+                    "resource": {
+                        "type": "string",
+                        "description": "Resource identifier of function being invoked"
+                    },
+                    "source": {
+                        "type": "string",
+                        "description": "Source path:line number if possible to fill in on error, null/undefined otherwise"
+                    },
+                    "execTimeMs": {
+                        "type": "number",
+                        "description": "Execution time in milliseconds, may include fractional millis after decimal point"
+                    },
+                    "statusCode": {
+                        "type": "integer",
+                        "description": "HTTP status code of response: 200-599, -1 if non-HTTP error encountered."
+                    },
+                    "isFunctionError": {
+                        "type": "boolean",
+                        "description": "Flag set to true if error encountered in function code, false if other error, null/undefined if no error"
+                    },
+                    "stack": {
+                        "type": "string",
+                        "description": "Language-specific error stack trace to help developer diagnose issues, null/undefined if no error"
+                    }
+                },
+                "required": [
+                    "requestId"
                 ]
             }
         }
