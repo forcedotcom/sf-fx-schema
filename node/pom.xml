@@ -44,10 +44,10 @@
             <configuration>
               <target>
                 <mkdir dir="${project.basedir}/dist"/>
-                <exec executable="npm" dir="${project.basedir}">
+                <exec executable="npm" dir="${project.basedir}" failonerror="true">
                   <arg value="install" />
                 </exec>
-                <exec executable="npm" dir="${project.basedir}">
+                <exec executable="npm" dir="${project.basedir}" failonerror="true">
                   <arg value="run" />
                   <arg value="build" />
                 </exec>
@@ -62,7 +62,7 @@
             </goals>
             <configuration>
               <target>
-                <exec executable="npm" dir="${project.basedir}">
+                <exec executable="npm" dir="${project.basedir}" failonerror="true">
                   <arg value="run" />
                   <arg value="test" />
                 </exec>

@@ -3,3 +3,7 @@ target/
 .vscode/
 node_modules/
 dist/
+*.tgz
+*.zip
+*.out
+*.log
