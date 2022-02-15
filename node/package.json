@@ -9,8 +9,14 @@
   "engines": {
     "node": "^16.9"
   },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "dist",
+    "types"
+  ],
   "scripts": {
-    "build": "tsc src/*.ts",
+    "build": "tsc",
     "test": "mocha"
   },
   "devDependencies": {

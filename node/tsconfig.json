@@ -10,5 +10,8 @@
     "declarationDir": "./types",
     "declarationMap": true
   },
+  "include": [
+    "./src/**/*"
+  ],
   "lib": ["es6"]
 }

@@ -32,6 +32,7 @@
               <target>
                 <delete dir="${project.basedir}/node_modules" />
                 <delete dir="${project.basedir}/dist" />
+                <delete dir="${project.basedir}/types" />
               </target>
             </configuration>
           </execution>
@@ -65,6 +66,20 @@
                 <exec executable="npm" dir="${project.basedir}" failonerror="true">
                   <arg value="run" />
                   <arg value="test" />
+                </exec>
+              </target>
+            </configuration>
+          </execution>
+          <execution>
+            <id>package-node</id>
+            <phase>package</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <exec executable="npm" dir="${project.basedir}" failonerror="true">
+                  <arg value="pack" />
                 </exec>
               </target>
             </configuration>
