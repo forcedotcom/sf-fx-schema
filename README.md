@@ -20,7 +20,7 @@ The following programming languages must be installed in your path to be able to
 * Java/OpenJDK 11 or higher
 * Maven 3.6.x or higher
 * go 1.16 or higher
-* node 14+ and the associated version of npm
+* node 16+ LTS and the associated version of npm
 
 ## Building Generated Libraries
 
