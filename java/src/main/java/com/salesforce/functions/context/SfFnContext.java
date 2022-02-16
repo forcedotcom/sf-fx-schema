@@ -44,7 +44,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   SfFnContext.JSON_PROPERTY_ASYNC_RESPONSE_CALLBACK_PATH,
   SfFnContext.JSON_PROPERTY_DEADLINE
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-11T09:34:01.344279-07:00[America/Denver]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SfFnContext {
   public static final String JSON_PROPERTY_ACCESS_TOKEN = "accessToken";
   private String accessToken;

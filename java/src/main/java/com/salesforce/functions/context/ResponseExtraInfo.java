@@ -41,7 +41,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   ResponseExtraInfo.JSON_PROPERTY_IS_FUNCTION_ERROR,
   ResponseExtraInfo.JSON_PROPERTY_STACK
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-11T09:34:01.344279-07:00[America/Denver]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ResponseExtraInfo {
   public static final String JSON_PROPERTY_REQUEST_ID = "requestId";
   private String requestId;

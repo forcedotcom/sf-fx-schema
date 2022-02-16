@@ -30,7 +30,7 @@
             </goals>
             <configuration>
               <target>
-                <exec executable="go" dir="${project.basedir}">
+                <exec executable="go" dir="${project.basedir}" failonerror="true">
                   <arg value="test" />
                   <arg value="." />
                 </exec>

@@ -119,6 +119,11 @@
                       <fileset dir="${gen-javadir}/src/main/java"
                           includes="**/AbstractOpenApiSchema.java" />
                     </delete>
+                    <replaceregexp byline="true" encoding="UTF-8"
+                            match=',\s*date\s*=\s*"2[^"]+"' replace="">
+                      <fileset dir="${gen-javadir}/src/main/java"
+                          includes="**/*.java" />
+                    </replaceregexp>
                     <move todir="${project.basedir}/src/main/java">
                       <fileset dir="${gen-javadir}/src/main/java"
                           includes="**/*.java" />

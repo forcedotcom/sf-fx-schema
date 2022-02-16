@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   SfContext.JSON_PROPERTY_PAYLOAD_VERSION,
   SfContext.JSON_PROPERTY_USER_CONTEXT
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-02-11T09:34:01.344279-07:00[America/Denver]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SfContext {
   public static final String JSON_PROPERTY_API_VERSION = "apiVersion";
   private String apiVersion;
