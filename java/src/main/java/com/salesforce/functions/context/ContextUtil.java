@@ -18,6 +18,7 @@ package com.salesforce.functions.context;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.text.ParsePosition;
 import java.time.Instant;
 import java.time.OffsetDateTime;
@@ -43,7 +44,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
  * Utility methods to decode and encode context methods in a form suitable for
  * CloudEvent extensions `sfcontext` and `sffncontext`.
  */
-public class ContextUtil {
+public final class ContextUtil {
 
     /** Thread-safe date/time formatter to format OffsetDateTime properties. */
     static final DateTimeFormatter ODT_FMT = new DateTimeFormatterBuilder()
@@ -97,8 +98,9 @@ public class ContextUtil {
      * Encode a SfContext to base64-encoded JSON.
      * @param obj Salesforce Context, including UserContext.
      * @return base64-encoded JSON string if input is non-null.  Null if given null input.
+     * @throws IOException if unable to encode.
      */
-    public static String encodeSfContext(SfContext obj) {
+    public static String encodeSfContext(SfContext obj) throws IOException {
         return encodeInternal(obj);
     }
 
@@ -116,8 +118,9 @@ public class ContextUtil {
      * Encode a SfFnContext to base64-encoded JSON.
      * @param obj Salesforce Function Context.
      * @return base64-encoded JSON string if input is non-null.  Null if given null input.
+     * @throws IOException if unable to encode.
      */
-    public static String encodeSfFnContext(SfFnContext obj) {
+    public static String encodeSfFnContext(SfFnContext obj) throws IOException {
         return encodeInternal(obj);
     }
 
@@ -132,37 +135,30 @@ public class ContextUtil {
         if (urlEncStr == null || urlEncStr.trim().length() == 0) {
             return null;
         }
-        String decoded = URLDecoder.decode(urlEncStr, "UTF-8");
+        String decoded = URLDecoder.decode(urlEncStr, StandardCharsets.UTF_8);
         return OBJECT_MAPPER.readValue(decoded, ResponseExtraInfo.class);
     }
 
     /**
      * Encode a ResponseExtraInfo to URL-encoded UTF-8 JSON.
      * @param obj Response Extra Info object.
-     * @return URL-encoded UTF-9 string if input is non-null.  Null if given null input.
+     * @return URL-encoded UTF-8 string if input is non-null. Null if given null input.
+     * @throws IOException if unable to encode.
      */
-    public static String encodeExtraInfo(ResponseExtraInfo obj) {
+    public static String encodeExtraInfo(ResponseExtraInfo obj) throws IOException {
         if (obj == null) {
             return null;
         }
-        try {
-            String jsonStr = OBJECT_MAPPER.writeValueAsString(obj);
-            return URLEncoder.encode(jsonStr, "UTF-8");
-        } catch (IOException ex) {
-            throw new RuntimeException("Unable to encode JSON", ex);
-        }
+        String jsonStr = OBJECT_MAPPER.writeValueAsString(obj);
+        return URLEncoder.encode(jsonStr, StandardCharsets.UTF_8);
     }
 
-    private static String encodeInternal(Object obj) {
+    private static String encodeInternal(Object obj) throws IOException {
         if (obj == null) {
             return null;
         }
-        try {
-            byte[] jsonBytes = OBJECT_MAPPER.writeValueAsBytes(obj);
-            return B64_ENCODER.encodeToString(jsonBytes);
-        } catch (IOException ex) {
-            throw new RuntimeException("Unable to encode JSON", ex);
-        }
+        byte[] jsonBytes = OBJECT_MAPPER.writeValueAsBytes(obj);
+        return B64_ENCODER.encodeToString(jsonBytes);
     }
 
     private static <T> T decodeInternal(String base64Str, Class<T> cls) throws IOException {
