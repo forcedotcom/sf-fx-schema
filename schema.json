@@ -1,0 +1,166 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "OpenAPI Schema for Salesforce Functions invocation contexts",
+        "version": "1.0.0",
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "paths": {
+    },
+    "components": {
+        "schemas": {
+            "userContext": {
+                "type": "object",
+                "description": "Salesforce user/org context information",
+                "properties": {
+                    "orgId": {
+                        "type": "string",
+                        "description": "18-character unique Org identifier"
+                    },
+                    "userId": {
+                        "type": "string",
+                        "description": "18-character unique User identifier"
+                    },
+                    "onBehalfOfUserId": {
+                        "type": "string",
+                        "description": "Optional 18-character unique User identifier invoked-on-behalf-of"
+                    },
+                    "username": {
+                        "type": "string",
+                        "description": "Unique username"
+                    },
+                    "salesforceBaseUrl": {
+                        "type": "string",
+                        "format": "uri",
+                        "description": "Base URL of Salesforce appserver that invoked function"
+                    },
+                    "orgDomainUrl": {
+                        "type": "string",
+                        "format": "uri",
+                        "description": "MyDomain URL of Salesforce appserver that invoked function"
+                    }
+                },
+                "required": [
+                    "orgId",
+                    "userId",
+                    "username",
+                    "salesforceBaseUrl"
+                ]
+            },
+            "sfContext": {
+                "type": "object",
+                "description": "Salesforce context information",
+                "properties": {
+                    "apiVersion": {
+                        "type": "string",
+                        "description": "Salesforce API Version in form like: 53.0"
+                    },
+                    "payloadVersion": {
+                        "type": "string",
+                        "description": "Payload version indicating JSON-format"
+                    },
+                    "userContext": {
+                        "$ref": "#/components/schemas/userContext"
+                    }
+                },
+                "required": [
+                    "apiVersion",
+                    "payloadVersion",
+                    "userContext"
+                ]
+            },
+            "sfFnContext": {
+                "type": "object",
+                "description": "Salesforce Function invocation context information",
+                "properties": {
+                    "accessToken": {
+                        "type": "string",
+                        "description": "In-band access token to use for local Functions testing, not populated in production calls"
+                    },
+                    "functionInvocationId": {
+                        "type": "string",
+                        "description": "Unique function invocation identifier, only populated for async function invocations"
+                    },
+                    "proxyClientToken": {
+                        "type": "string",
+                        "description": "(internal use only)"
+                    },
+                    "functionName": {
+                        "type": "string",
+                        "description": "Qualified function name in the form <project>.<fnname> or <namespace>.<project>.<fnname>"
+                    },
+                    "apexId": {
+                        "type": "string",
+                        "description": "Unique Apex class identifier that invoked this function"
+                    },
+                    "apexFQN": {
+                        "type": "string",
+                        "description": "Apex qualified name that invoked this function in the form Pathname/filename.cls:linenum"
+                    },
+                    "requestId": {
+                        "type": "string",
+                        "description": "Unique function request identifier"
+                    },
+                    "resource": {
+                        "type": "string",
+                        "description": "Resource identifier of function being invoked"
+                    },
+                    "asyncResponseCallbackPath": {
+                        "type": "string",
+                        "description": "(internal use only)"
+                    },
+                    "deadline": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Deadline datetime (UTC) prior to which the Function request must complete: yyyy-MM-dd'T'HH:mm:ssZ",
+                        "example": "2022-01-31T23:19:01Z"
+                    }
+                },
+                "required": [
+                    "functionName",
+                    "requestId"
+                ]
+            },
+            "responseExtraInfo": {
+                "type": "object",
+                "description": "Extra response out-of-band information returned from function invocation",
+                "properties": {
+                    "requestId": {
+                        "type": "string",
+                        "description": "Unique function request identifier"
+                    },
+                    "resource": {
+                        "type": "string",
+                        "description": "Resource identifier of function being invoked"
+                    },
+                    "source": {
+                        "type": "string",
+                        "description": "Source path:line number if possible to fill in on error, null/undefined otherwise"
+                    },
+                    "execTimeMs": {
+                        "type": "number",
+                        "description": "Execution time in milliseconds, may include fractional millis after decimal point"
+                    },
+                    "statusCode": {
+                        "type": "integer",
+                        "description": "HTTP status code of response: 200-599, -1 if non-HTTP error encountered."
+                    },
+                    "isFunctionError": {
+                        "type": "boolean",
+                        "description": "Flag set to true if error encountered in function code, false if other error, null/undefined if no error"
+                    },
+                    "stack": {
+                        "type": "string",
+                        "description": "Language-specific error stack trace to help developer diagnose issues, null/undefined if no error"
+                    }
+                },
+                "required": [
+                    "requestId"
+                ]
+            }
+        }
+    }
+}

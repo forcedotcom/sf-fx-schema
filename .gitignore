@@ -1,0 +1,11 @@
+target/
+.idea/
+.vscode/
+node_modules/
+/node/dist/
+/node/types/
+*.tgz
+*.zip
+*.out
+*.log
+*.swp
