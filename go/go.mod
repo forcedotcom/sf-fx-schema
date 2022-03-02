@@ -1,6 +1,3 @@
-module github.com/forcedotcom/sf-fx-schema
+module github.com/forcedotcom/sf-fx-schema/go
 
 go 1.16
-
-require (
-)
