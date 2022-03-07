@@ -1,11 +1,12 @@
 {
-  "name": "sf-fx-schema-node",
+  "name": "@salesforce/sf-fx-schema-node",
   "version": "1.0.0",
   "type": "mnodule",
   "description": "Salesforce Functions schema-generated request context and extra info classes",
   "author": "salesforce.com, inc.",
   "license": "Apache 2.0",
   "main": "dist/index.js",
+  "types": "types/index.d.ts",
   "engines": {
     "node": "^16.9"
   },
