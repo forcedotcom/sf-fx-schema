@@ -8,6 +8,7 @@
     <relativePath>..</relativePath>
   </parent>
   <artifactId>sf-fx-schema-java</artifactId>
+  <name>com.salesforce.functions:sf-fx-schema-java</name>
 
   <properties>
     <gen-javadir>${project.build.directory}/generated-sources/openapi</gen-javadir>
@@ -162,7 +163,7 @@
                 <id>gen-java-source-jar</id>
                 <phase>package</phase>
                 <goals>
-                  <goal>jar</goal>
+                  <goal>jar-no-fork</goal>
                 </goals>
               </execution>
             </executions>

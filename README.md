@@ -6,7 +6,7 @@ This project specifies an OpenAPI schema for the containing CloudEvent and exten
 
 ## Structure
 
-LICENSE - Apache 2.0 license for this project
+LICENSE - BSD-3-Clause license for this project and its generated source code
 pom.xml - Maven project file to build this multi-module project, requires Maven 3.6+ and Java 11+
 schema.json - OpenAPI 3.x schema specification for *Context model objects to be used for language-specific code generation.
 go/ - Go language subproject

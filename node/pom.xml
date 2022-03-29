@@ -9,6 +9,7 @@
   </parent>
   <artifactId>sf-fx-schema-node</artifactId>
   <packaging>pom</packaging>
+  <name>com.salesforce.functions:sf-fx-schema-node</name>
 
   <properties>
     <gen-nodedir>${project.build.directory}/generated-sources/openapi</gen-nodedir>

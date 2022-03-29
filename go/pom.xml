@@ -9,6 +9,7 @@
   </parent>
   <artifactId>sf-fx-schema-go</artifactId>
   <packaging>pom</packaging>
+  <name>com.salesforce.functions:sf-fx-schema-go</name>
 
   <properties>
     <gen-godir>${project.build.directory}/generated-sources/openapi</gen-godir>

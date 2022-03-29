@@ -8,4 +8,3 @@ toolset.
 
 Note this is *not* a Java project - the pom.xml in this directory is only used to run tests during a toplevel
 project build (see ../README.md) and run openapi-generator during a `codegen` profile invocation.
-
