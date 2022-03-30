@@ -111,6 +111,7 @@
                   <generatorName>typescript-node</generatorName>
                   <disallowAdditionalPropertiesIfNotPresent>false</disallowAdditionalPropertiesIfNotPresent>
                   <supportsES6>true</supportsES6>
+                  <templateDirectory>${basedir}/custom_template</templateDirectory>
                 </configuration>
               </execution>
             </executions>

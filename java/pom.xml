@@ -95,8 +95,9 @@
                   <apiPackage>${excludePackage}</apiPackage>
                   <modelPackage>${basePackage}</modelPackage>
                   <invokerPackage>${excludePackage}</invokerPackage>
-                  <licenseName>Apache 2.0</licenseName>
-                  <licenseUrl>https://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+                  <licenseName>BSD-3-Clause</licenseName>
+                  <licenseUrl>https://opensource.org/licenses/BSD-3-Clause</licenseUrl>
+                  <templateDirectory>${basedir}/src/main/custom_template</templateDirectory>
                 </configuration>
               </execution>
             </executions>

@@ -65,6 +65,7 @@
                   <disallowAdditionalPropertiesIfNotPresent>false</disallowAdditionalPropertiesIfNotPresent>
                   <packageName>sffxschema</packageName>
                   <packageVersion>${project.version}</packageVersion>
+                  <templateDirectory>${basedir}/custom_template</templateDirectory>
                 </configuration>
               </execution>
             </executions>
