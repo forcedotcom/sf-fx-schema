@@ -46,8 +46,148 @@ $ mvn -Pcodegen,cibuild clean package
 
 ## Publishing Generated Libraries
 
-TODO
+In the notes below we will use `$rver` to stand in for the release version number, for example 1.0.1.
 
-* How to create a Github Release (for use by golang, maven release build, etc)
-* How to publish to Maven Central
-* How to publish to NPM
+First start a release branch that will have commits for non-SNAPSHOT version numbers:
+```
+$ git checkout -b release-$rver
+```
+
+Update all the maven project pom.xml files to the release version and check that appropriate updates were made.
+If correct, commit the revised version.
+```
+$ mvn versions:set -DnewVersion=$rver
+$ vi node/package.json   # set "version": to the new $rver value, save and exit.
+$ git status
+$ git diff
+$ git add -A
+$ git commit -m "Prepare for release $rver"
+```
+
+Make sure you can rebuild locally without deploying.  There should be *no* changes to source code after a clean
+rebuild with code generation:
+```
+$ mvn -Pcodegen,cibuild clean package
+$ git diff    # should be empty
+```
+
+### Publish github release and tag for go usage
+
+To publish for use by go clients, you just need to publish a tag with a `go/` prefix as well as a "normal" version tag:
+```
+$ git push origin release-$rver
+$ git tag v$rver
+$ git tag go/v$rver
+$ git push origin --tags
+```
+
+Then on the github tags page, https://github.com/forcedotcom/sf-fx-schema/tags, click the right-most "..." 
+for the newly pushed v$rver tag, choose Create Release, fill in the title like v$rver, fill in the changelog
+description and click Publish release.
+
+### Publish to NPM
+
+To publish to NPM, you will need a valid account at npmjs.com (https://www.npmjs.com/signup) that has been added
+to the `salesforce` org with publish privileges.
+In addition, that account *must* have 2-Factor authentication enabled for authorization and publishing.
+
+Do all the npm install and publish steps in this project's `node/` subdirectory:
+```
+$ cd node
+$ head package.json   # double-check that "version" is set to $rver
+```
+
+Make sure that local installation works first:
+```
+$ npm install $(pwd)
+```
+
+Do a dry-run publish second and make sure that completes without error.  You may be prompted for your 6-digit 2FA
+Authenticator code.
+```
+$ npm publish --access public --dry-run
+```
+
+If successful, do a full public publish.  Again, you may be prompted for your 2FA code:
+```
+$ npm publish --access public --dry-run
+```
+
+
+### Publish to Maven Central
+
+To publish to Maven Central, you must have the prerequisites satisfied from the Sonatype OSSRH page
+https://central.sonatype.org/publish/publish-guide/, starting with "Create your JIRA account".  You 
+will not need to create a New Project ticket since this project has already been published.
+In addition, you may need to file an OSSRH ticket to get access to publish to the `com.salesforce.functions`
+project and wait for approval.
+
+You must also have GPG installed, available on your path, and the first key pair in your keyring set
+to your USERNAME@salesforce.com, which must be the same email used to register for Jira.  And you 
+must have distributed your public key to one of the keyservers supported by Maven Central (recommended:
+use the web interface for pasting in your public key rather than using CLI tools).  Details
+at: https://central.sonatype.org/publish/requirements/gpg/
+
+In your `~/.m2/settings.xml` file in the `<servers>...</servers>` block you will need to add a new
+block with `ossrh` as its ID and your Jira ID/Password.  Details and examples starting at 
+`<settings>...` on this page: 
+https://central.sonatype.org/publish/publish-maven/#distribution-management-and-authentication
+```
+settings>
+  <servers>
+    <server>
+      <id>ossrh</id>
+      <username>your-jira-id</username>
+      <password>your-jira-pwd</password>
+    </server>
+  </servers>
+</settings>
+````
+
+Also in `~/.m2/settings.xml` under `<profiles>...` you will need an `ossrh` profile with the
+`gpg.*` properties described in the GPG Signed Components section of:
+https://central.sonatype.org/publish/publish-maven/#gpg-signed-components
+(note you do not need this profile to be activeByDefault):
+```
+    <profile>
+      <id>ossrh</id>
+      <properties>
+        <gpg.executable>/usr/local/bin/gpg</gpg.executable>
+        <gpg.passphrase>the_gpg_pass_phrase</gpg.passphrase>
+      </properties>
+    </profile>
+```
+
+Once all those steps have been completed and validated, you should be able to publish.  Note
+that any 4xx error from oss.sonatype.org indicates a missing authentication, authorization,
+or signing step above.
+```
+mvn -Possrh,cibuild,-sfdc clean deploy
+```
+
+Once that deploy is successful, you must log in to https://oss.sonatype.org/, review the staging repository
+https://oss.sonatype.org/#stagingRepositories following the instructions at
+https://central.sonatype.org/publish/release/#locate-and-examine-your-staging-repository. If all the auto-
+reviews were successful, the Activity tab should show success and the staging repo will be Closed.  It will
+then be sync-d within an hour or so to Maven Central, where you can search:
+
+https://search.maven.org/search?q=a:sf-fx-schema
+
+
+### Prep for next release
+
+Once all the bits have been published successfully, prepare for the next release by updating
+to the next SNAPSHOT version, pushing that to the release branch:
+```
+$ nextver=X.Y.Z   # example 1.0.2
+$ mvn versions:set -DnewVersion=${nextver}-SNAPSHOT
+$ git status
+$ git diff
+$ git add -A
+$ git commit -m "Prepare for next release $nextver"
+$ git push origin release-$rver
+```
+
+Submit that branch as a PR for review, get a positive review, and merge to `main`
+for the next release.
+
