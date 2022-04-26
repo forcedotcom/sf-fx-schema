@@ -165,6 +165,15 @@ or signing step above.
 mvn -Possrh,cibuild,-sfdc clean deploy
 ```
 
+Once that deploy is successful, you must log in to https://oss.sonatype.org/, review the staging repository
+https://oss.sonatype.org/#stagingRepositories following the instructions at
+https://central.sonatype.org/publish/release/#locate-and-examine-your-staging-repository. If all the auto-
+reviews were successful, the Activity tab should show success and the staging repo will be Closed.  It will
+then be sync-d within an hour or so to Maven Central, where you can search:
+
+https://search.maven.org/search?q=a:sf-fx-schema
+
+
 ### Prep for next release
 
 Once all the bits have been published successfully, prepare for the next release by updating
