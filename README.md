@@ -162,15 +162,31 @@ Once all those steps have been completed and validated, you should be able to pu
 that any 4xx error from oss.sonatype.org indicates a missing authentication, authorization,
 or signing step above.
 ```
-mvn -Possrh,cibuild,-sfdc clean deploy
+$ mvn -Possrh,cibuild,-sfdc clean deploy
 ```
 
 Once that deploy is successful, you must log in to https://oss.sonatype.org/, review the staging repository
 https://oss.sonatype.org/#stagingRepositories following the instructions at
 https://central.sonatype.org/publish/release/#locate-and-examine-your-staging-repository. If all the auto-
-reviews were successful, the Activity tab should show success and the staging repo will be Closed.  It will
-then be sync-d within an hour or so to Maven Central, where you can search:
+reviews were successful, the Activity tab should show success and the staging repo will be Closed.  Use
+the Artifacts tab to browse the content of the release and if everything reviews OK, check the [X] checkbox
+next to the staging repo in the top panel and click the `Release` button.  Alternatively on the command line:
+```
+$ mvn -Possrh,cibuild,-sfdc nexus-staging:release
+...
+Waiting for operation to complete...
+......
 
+[INFO] Released
+...
+[INFO] BUILD SUCCESS
+
+```
+
+It will then be sync-d within approx 20 minutes to central where it can be browsed:
+https://repo1.maven.org/maven2/com/salesforce/functions/
+
+And within approx 2 hours to replicas and the search site:
 https://search.maven.org/search?q=a:sf-fx-schema
 
 
