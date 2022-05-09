@@ -3,7 +3,7 @@
 
   <groupId>com.salesforce.functions</groupId>
   <artifactId>sf-fx-schema</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.2-test</version>
   <packaging>pom</packaging>
 
   <name>com.salesforce.functions:sf-fx-schema</name>

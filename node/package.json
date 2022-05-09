@@ -1,6 +1,6 @@
 {
   "name": "@salesforce/sf-fx-schema-node",
-  "version": "1.0.0",
+  "version": "1.0.2-test",
   "type": "mnodule",
   "description": "Salesforce Functions schema-generated request context and extra info classes",
   "author": "Salesforce.com, Inc.",
