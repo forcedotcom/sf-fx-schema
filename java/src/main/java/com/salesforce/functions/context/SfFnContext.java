@@ -41,7 +41,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   SfFnContext.JSON_PROPERTY_REQUEST_ID,
   SfFnContext.JSON_PROPERTY_RESOURCE,
   SfFnContext.JSON_PROPERTY_ASYNC_RESPONSE_CALLBACK_PATH,
-  SfFnContext.JSON_PROPERTY_DEADLINE
+  SfFnContext.JSON_PROPERTY_DEADLINE,
+  SfFnContext.JSON_PROPERTY_FUNCTION_NAMESPACE
 })
 @javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SfFnContext {
@@ -74,6 +75,9 @@ public class SfFnContext {
 
   public static final String JSON_PROPERTY_DEADLINE = "deadline";
   private OffsetDateTime deadline;
+
+  public static final String JSON_PROPERTY_FUNCTION_NAMESPACE = "functionNamespace";
+  private String functionNamespace;
 
   public SfFnContext() { 
   }
@@ -338,6 +342,32 @@ public class SfFnContext {
   }
 
 
+  public SfFnContext functionNamespace(String functionNamespace) {
+    this.functionNamespace = functionNamespace;
+    return this;
+  }
+
+   /**
+   * Optional Namespace prefix for the functions
+   * @return functionNamespace
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Optional Namespace prefix for the functions")
+  @JsonProperty(JSON_PROPERTY_FUNCTION_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getFunctionNamespace() {
+    return functionNamespace;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FUNCTION_NAMESPACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFunctionNamespace(String functionNamespace) {
+    this.functionNamespace = functionNamespace;
+  }
+
+
   /**
    * Return true if this sfFnContext object is equal to o.
    */
@@ -359,12 +389,13 @@ public class SfFnContext {
         Objects.equals(this.requestId, sfFnContext.requestId) &&
         Objects.equals(this.resource, sfFnContext.resource) &&
         Objects.equals(this.asyncResponseCallbackPath, sfFnContext.asyncResponseCallbackPath) &&
-        Objects.equals(this.deadline, sfFnContext.deadline);
+        Objects.equals(this.deadline, sfFnContext.deadline) &&
+        Objects.equals(this.functionNamespace, sfFnContext.functionNamespace);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(accessToken, functionInvocationId, proxyClientToken, functionName, apexId, apexFQN, requestId, resource, asyncResponseCallbackPath, deadline);
+    return Objects.hash(accessToken, functionInvocationId, proxyClientToken, functionName, apexId, apexFQN, requestId, resource, asyncResponseCallbackPath, deadline, functionNamespace);
   }
 
   @Override
@@ -381,6 +412,7 @@ public class SfFnContext {
     sb.append("    resource: ").append(toIndentedString(resource)).append("\n");
     sb.append("    asyncResponseCallbackPath: ").append(toIndentedString(asyncResponseCallbackPath)).append("\n");
     sb.append("    deadline: ").append(toIndentedString(deadline)).append("\n");
+    sb.append("    functionNamespace: ").append(toIndentedString(functionNamespace)).append("\n");
     sb.append("}");
     return sb.toString();
   }

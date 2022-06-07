@@ -55,6 +55,10 @@ export class SfFnContext {
     * Deadline datetime (UTC) prior to which the Function request must complete: yyyy-MM-dd\'T\'HH:mm:ssZ
     */
     'deadline'?: Date;
+    /**
+    * Optional Namespace prefix for the functions
+    */
+    'functionNamespace'?: string;
 
     static discriminator: string | undefined = undefined;
 
@@ -108,6 +112,11 @@ export class SfFnContext {
             "name": "deadline",
             "baseName": "deadline",
             "type": "Date"
+        },
+        {
+            "name": "functionNamespace",
+            "baseName": "functionNamespace",
+            "type": "string"
         }    ];
 
     static getAttributeTypeMap() {

@@ -43,6 +43,10 @@ export class ResponseExtraInfo {
     * Language-specific error stack trace to help developer diagnose issues, null/undefined if no error
     */
     'stack'?: string;
+    /**
+    * Optional error message for failed function invocations
+    */
+    'errorMessage'?: string;
 
     static discriminator: string | undefined = undefined;
 
@@ -80,6 +84,11 @@ export class ResponseExtraInfo {
         {
             "name": "stack",
             "baseName": "stack",
+            "type": "string"
+        },
+        {
+            "name": "errorMessage",
+            "baseName": "errorMessage",
             "type": "string"
         }    ];
 

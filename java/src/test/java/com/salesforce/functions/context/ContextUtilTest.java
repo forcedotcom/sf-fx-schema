@@ -20,29 +20,32 @@ import org.junit.Test;
  * Unit tests for ContextUtil
  */
 public class ContextUtilTest {
-    static final String CE_SFCONTEXT = "eyJhcGlWZXJzaW9uIjoiNTAuMCIsInBheWxvYWRWZXJzaW9uIjoiMC4x" +
-            "IiwidXNlckNvbnRleHQiOnsib3JnSWQiOiIwMER4eDAwMDAwMDZJWUoiLCJ1c2VySWQiOiIwMDV4eDAwMDA" +
-            "wMVg4VXoiLCJvbkJlaGFsZk9mVXNlcklkIjpudWxsLCJ1c2VybmFtZSI6InRlc3QtenFpc25mNnl0bHF2QG" +
-            "V4YW1wbGUuY29tIiwic2FsZXNmb3JjZUJhc2VVcmwiOiJodHRwOi8vcGlzdGFjaGlvLXZpcmdvLTEwNjMtZ" +
-            "GV2LWVkLmxvY2FsaG9zdC5pbnRlcm5hbC5zYWxlc2ZvcmNlLmNvbTo2MTA5Iiwib3JnRG9tYWluVXJsIjoi" +
-            "aHR0cDovL3Bpc3RhY2hpby12aXJnby0xMDYzLWRldi1lZC5sb2NhbGhvc3QuaW50ZXJuYWwuc2FsZXNmb3J" +
-            "jZS5jb206NjEwOSJ9fQ==";
-    static final String CE_SFFNCONTEXT = "eyJhY2Nlc3NUb2tlbiI6IjAwRHh4MDAwMDAwNklZSiFBUUVBUU5SYU" +
-            "FRRUFRTlJhQVFFQVFOUmFBUUVBUU5SYUFRRUFRTlJhQVFFQVFOUmFBUUVBUU5SYUFRRUFRTlJhQVFFQVFOU" +
-            "mFBUUVBUU5SYSIsImZ1bmN0aW9uSW52b2NhdGlvbklkIjoiOW1kNnUwMDAwMDAwTGZ4QUFFIiwicHJveHlD" +
-            "bGllbnRUb2tlbiI6InNmLWZ4LXByb3h5OW1kNnUwMDAwMDAwTGZ4QUFFLXNmZFp6MTl2SUxtWnoxOSIsImZ" +
-            "1bmN0aW9uTmFtZSI6Ik15UHJvamVjdC50ZXN0Zm4xIiwiYXBleElkIjoiYTBjTTAwMDAwMDQzU1Q0IiwiYX" +
-            "BleEZRTiI6ImNsYXNzZXMvRnVuY3Rpb25BcGV4LmNsczoxNCIsInJlcXVlc3RJZCI6IjAwRHh4MDAwMDAwN" +
-            "klZSkVBMi05bWQ2dTAwMDAwMDBMZnhBQUUtMWE4OTNlNTAiLCJyZXNvdXJjZSI6InRlc3RmbjEtYW50ZWF0" +
-            "ZXItZDk5LmJhc2luLWRkMWRkMS5ldmVyZ3JlZW4uc3BhY2UiLCJhc3luY1Jlc3BvbnNlQ2FsbGJhY2tQYXR" +
-            "oIjoiL3NlcnZpY2VzL2Z1bmN0aW9uL2FyaCIsImRlYWRsaW5lIjoiMjAyMi0wMi0xMFQxNzo1OToxMVoifQ" +
-            "==";
-    static final String RESPONSE_EXTRA_INFO = "%7B%22requestId%22%3A%2200Dxx0000006IYJEA2-9md6u0" +
-            "000000LfxAAE-1a893e50%22%2C%22resource%22%3A%22testfn1-anteater-d99.basin-dd1dd1.ev" +
-            "ergreen.space%22%2C%22source%22%3A%22com/example/fn/MyFunc.java%3A29%22%2C%22execTi" +
-            "meMs%22%3A101.393%2C%22statusCode%22%3A500%2C%22isFunctionError%22%3Atrue%2C%22stac" +
-            "k%22%3A%22com/example/fn/MyFunc.java%3A29%5Cn%20java/lang/RuntimeException.java%3A1" +
-            "11%22%7D";
+    static final String CE_SFCONTEXT = 
+            "eyJhcGlWZXJzaW9uIjoiNTAuMCIsInBheWxvYWRWZXJzaW9uIjoiMC4xIiwidXNlckNvbnRleHQiOnsib3J" + 
+            "nSWQiOiIwMER4eDAwMDAwMDZJWUoiLCJ1c2VySWQiOiIwMDV4eDAwMDAwMVg4VXoiLCJvbkJlaGFsZk9mVX" + 
+            "NlcklkIjpudWxsLCJ1c2VybmFtZSI6InRlc3QtenFpc25mNnl0bHF2QGV4YW1wbGUuY29tIiwic2FsZXNmb" + 
+            "3JjZUJhc2VVcmwiOiJodHRwOi8vcGlzdGFjaGlvLXZpcmdvLTEwNjMtZGV2LWVkLmxvY2FsaG9zdC5pbnRl" + 
+            "cm5hbC5zYWxlc2ZvcmNlLmNvbTo2MTA5Iiwib3JnRG9tYWluVXJsIjoiaHR0cDovL3Bpc3RhY2hpby12aXJ" + 
+            "nby0xMDYzLWRldi1lZC5sb2NhbGhvc3QuaW50ZXJuYWwuc2FsZXNmb3JjZS5jb206NjEwOSIsInNhbGVzZm" + 
+            "9yY2VJbnN0YW5jZSI6bnVsbH19";
+    static final String CE_SFFNCONTEXT = 
+            "eyJhY2Nlc3NUb2tlbiI6IjAwRHh4MDAwMDAwNklZSiFBUUVBUU5SYUFRRUFRTlJhQVFFQVFOUmFBUUVBUU5" + 
+            "SYUFRRUFRTlJhQVFFQVFOUmFBUUVBUU5SYUFRRUFRTlJhQVFFQVFOUmFBUUVBUU5SYSIsImZ1bmN0aW9uSW" + 
+            "52b2NhdGlvbklkIjoiOW1kNnUwMDAwMDAwTGZ4QUFFIiwicHJveHlDbGllbnRUb2tlbiI6InNmLWZ4LXByb" + 
+            "3h5OW1kNnUwMDAwMDAwTGZ4QUFFLXNmZFp6MTl2SUxtWnoxOSIsImZ1bmN0aW9uTmFtZSI6Ik15UHJvamVj" + 
+            "dC50ZXN0Zm4xIiwiYXBleElkIjoiYTBjTTAwMDAwMDQzU1Q0IiwiYXBleEZRTiI6ImNsYXNzZXMvRnVuY3R" + 
+            "pb25BcGV4LmNsczoxNCIsInJlcXVlc3RJZCI6IjAwRHh4MDAwMDAwNklZSkVBMi05bWQ2dTAwMDAwMDBMZn" + 
+            "hBQUUtMWE4OTNlNTAiLCJyZXNvdXJjZSI6InRlc3RmbjEtYW50ZWF0ZXItZDk5LmJhc2luLWRkMWRkMS5ld" + 
+            "mVyZ3JlZW4uc3BhY2UiLCJhc3luY1Jlc3BvbnNlQ2FsbGJhY2tQYXRoIjoiL3NlcnZpY2VzL2Z1bmN0aW9u" + 
+            "L2FyaCIsImRlYWRsaW5lIjoiMjAyMi0wMi0xMFQxNzo1OToxMVoiLCJmdW5jdGlvbk5hbWVzcGFjZSI6bnV" + 
+            "sbH0=";
+    static final String RESPONSE_EXTRA_INFO =     
+            "%7B%22requestId%22%3A%2200Dxx0000006IYJEA2-9md6u0000000LfxAAE-1a893e50%22%2C%22reso" + 
+            "urce%22%3A%22testfn1-anteater-d99.basin-dd1dd1.evergreen.space%22%2C%22source%22%3A" + 
+            "%22com%2Fexample%2Ffn%2FMyFunc.java%3A29%22%2C%22execTimeMs%22%3A101.393%2C%22statu" + 
+            "sCode%22%3A500%2C%22isFunctionError%22%3Atrue%2C%22stack%22%3A%22com%2Fexample%2Ffn" + 
+            "%2FMyFunc.java%3A29%5Cn+java%2Flang%2FRuntimeException.java%3A111%22%2C%22errorMess" + 
+            "age%22%3Anull%7D";
 
     @Test
     public void testDateTimeParse() throws Exception {
@@ -83,7 +86,7 @@ public class ContextUtilTest {
         assertEquals(url, ctx.getUserContext().getSalesforceBaseUrl());
         assertEquals(url, ctx.getUserContext().getOrgDomainUrl());
 
-        String reEncoded = ContextUtil.encodeSfContext(ctx);
+        String reEncoded = ContextUtil.encodeSfContext(ctx);        
         assertEquals(CE_SFCONTEXT, reEncoded);
     }
 
@@ -115,7 +118,7 @@ public class ContextUtilTest {
         OffsetDateTime odt = OffsetDateTime.of(2022, 2, 10, 17, 59, 11, 0, ZoneOffset.UTC);
         assertEquals(odt, ctx.getDeadline());
 
-        String reEncoded = ContextUtil.encodeSfFnContext(ctx);
+        String reEncoded = ContextUtil.encodeSfFnContext(ctx);        
         assertEquals(CE_SFFNCONTEXT, reEncoded);
     }
 
@@ -142,7 +145,7 @@ public class ContextUtilTest {
         String reEncoded = ContextUtil.encodeExtraInfo(xi);
         // Java URLEncoder escapes slashes (/) but python3 urllib (created sample above) does not.
         // Also Java URLEncoder escapes spaces with plus (+), urlllib used %20.
-        String expected = RESPONSE_EXTRA_INFO.replaceAll("/", "%2F").replaceAll("%20", "+");
+        String expected = RESPONSE_EXTRA_INFO.replaceAll("/", "%2F").replaceAll("%20", "+");        
         assertEquals(expected, reEncoded);
     }
 }
