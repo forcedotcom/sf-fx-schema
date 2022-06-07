@@ -28,7 +28,7 @@ public class ContextUtilTest {
             "cm5hbC5zYWxlc2ZvcmNlLmNvbTo2MTA5Iiwib3JnRG9tYWluVXJsIjoiaHR0cDovL3Bpc3RhY2hpby12aXJ" + 
             "nby0xMDYzLWRldi1lZC5sb2NhbGhvc3QuaW50ZXJuYWwuc2FsZXNmb3JjZS5jb206NjEwOSIsInNhbGVzZm" + 
             "9yY2VJbnN0YW5jZSI6bnVsbH19";
-    static final String CE_SFFNCONTEXT = 
+    static final String CE_SFFNCONTEXT =             
             "eyJhY2Nlc3NUb2tlbiI6IjAwRHh4MDAwMDAwNklZSiFBUUVBUU5SYUFRRUFRTlJhQVFFQVFOUmFBUUVBUU5" + 
             "SYUFRRUFRTlJhQVFFQVFOUmFBUUVBUU5SYUFRRUFRTlJhQVFFQVFOUmFBUUVBUU5SYSIsImZ1bmN0aW9uSW" + 
             "52b2NhdGlvbklkIjoiOW1kNnUwMDAwMDAwTGZ4QUFFIiwicHJveHlDbGllbnRUb2tlbiI6InNmLWZ4LXByb" + 
@@ -38,7 +38,8 @@ public class ContextUtilTest {
             "hBQUUtMWE4OTNlNTAiLCJyZXNvdXJjZSI6InRlc3RmbjEtYW50ZWF0ZXItZDk5LmJhc2luLWRkMWRkMS5ld" + 
             "mVyZ3JlZW4uc3BhY2UiLCJhc3luY1Jlc3BvbnNlQ2FsbGJhY2tQYXRoIjoiL3NlcnZpY2VzL2Z1bmN0aW9u" + 
             "L2FyaCIsImRlYWRsaW5lIjoiMjAyMi0wMi0xMFQxNzo1OToxMVoiLCJmdW5jdGlvbk5hbWVzcGFjZSI6bnV" + 
-            "sbH0=";
+            "sbCwiaW52b2tpbmdOYW1lc3BhY2UiOm51bGx9";
+
     static final String RESPONSE_EXTRA_INFO =     
             "%7B%22requestId%22%3A%2200Dxx0000006IYJEA2-9md6u0000000LfxAAE-1a893e50%22%2C%22reso" + 
             "urce%22%3A%22testfn1-anteater-d99.basin-dd1dd1.evergreen.space%22%2C%22source%22%3A" + 
@@ -118,7 +119,7 @@ public class ContextUtilTest {
         OffsetDateTime odt = OffsetDateTime.of(2022, 2, 10, 17, 59, 11, 0, ZoneOffset.UTC);
         assertEquals(odt, ctx.getDeadline());
 
-        String reEncoded = ContextUtil.encodeSfFnContext(ctx);        
+        String reEncoded = ContextUtil.encodeSfFnContext(ctx); 
         assertEquals(CE_SFFNCONTEXT, reEncoded);
     }
 

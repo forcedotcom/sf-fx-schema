@@ -125,6 +125,10 @@
                     "functionNamespace": {
                         "type": "string",
                         "description": "Optional Namespace prefix for the functions"
+                    },
+                    "invokingNamespace": {
+                        "type": "string",
+                        "description": "Optional Namespace prefix for the invoking apex code"
                     }
                 },
                 "required": [

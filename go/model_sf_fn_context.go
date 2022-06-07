@@ -38,6 +38,8 @@ type SfFnContext struct {
 	Deadline *time.Time `json:"deadline,omitempty"`
 	// Optional Namespace prefix for the functions
 	FunctionNamespace *string `json:"functionNamespace,omitempty"`
+	// Optional Namespace prefix for the invoking apex code
+	InvokingNamespace *string `json:"invokingNamespace,omitempty"`
 }
 
 // NewSfFnContext instantiates a new SfFnContext object
@@ -395,6 +397,38 @@ func (o *SfFnContext) SetFunctionNamespace(v string) {
 	o.FunctionNamespace = &v
 }
 
+// GetInvokingNamespace returns the InvokingNamespace field value if set, zero value otherwise.
+func (o *SfFnContext) GetInvokingNamespace() string {
+	if o == nil || o.InvokingNamespace == nil {
+		var ret string
+		return ret
+	}
+	return *o.InvokingNamespace
+}
+
+// GetInvokingNamespaceOk returns a tuple with the InvokingNamespace field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SfFnContext) GetInvokingNamespaceOk() (*string, bool) {
+	if o == nil || o.InvokingNamespace == nil {
+		return nil, false
+	}
+	return o.InvokingNamespace, true
+}
+
+// HasInvokingNamespace returns a boolean if a field has been set.
+func (o *SfFnContext) HasInvokingNamespace() bool {
+	if o != nil && o.InvokingNamespace != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetInvokingNamespace gets a reference to the given string and assigns it to the InvokingNamespace field.
+func (o *SfFnContext) SetInvokingNamespace(v string) {
+	o.InvokingNamespace = &v
+}
+
 func (o SfFnContext) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.AccessToken != nil {
@@ -429,6 +463,9 @@ func (o SfFnContext) MarshalJSON() ([]byte, error) {
 	}
 	if o.FunctionNamespace != nil {
 		toSerialize["functionNamespace"] = o.FunctionNamespace
+	}
+	if o.InvokingNamespace != nil {
+		toSerialize["invokingNamespace"] = o.InvokingNamespace
 	}
 	return json.Marshal(toSerialize)
 }

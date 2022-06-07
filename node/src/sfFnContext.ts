@@ -59,6 +59,10 @@ export class SfFnContext {
     * Optional Namespace prefix for the functions
     */
     'functionNamespace'?: string;
+    /**
+    * Optional Namespace prefix for the invoking apex code
+    */
+    'invokingNamespace'?: string;
 
     static discriminator: string | undefined = undefined;
 
@@ -116,6 +120,11 @@ export class SfFnContext {
         {
             "name": "functionNamespace",
             "baseName": "functionNamespace",
+            "type": "string"
+        },
+        {
+            "name": "invokingNamespace",
+            "baseName": "invokingNamespace",
             "type": "string"
         }    ];
 
