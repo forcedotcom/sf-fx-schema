@@ -2,7 +2,7 @@
     "openapi": "3.0.2",
     "info": {
         "title": "OpenAPI Schema for Salesforce Functions invocation contexts",
-        "version": "1.0.0",
+        "version": "1.0.1",
         "license": {
             "name": "BSD-3-Clause",
             "url": "https://opensource.org/licenses/BSD-3-Clause"
@@ -41,6 +41,10 @@
                         "type": "string",
                         "format": "uri",
                         "description": "MyDomain URL of Salesforce appserver that invoked function"
+                    },
+                    "salesforceInstance": {
+                        "type": "string",
+                        "description": "Instance where organization is hosted"
                     }
                 },
                 "required": [
@@ -117,6 +121,14 @@
                         "format": "date-time",
                         "description": "Deadline datetime (UTC) prior to which the Function request must complete: yyyy-MM-dd'T'HH:mm:ssZ",
                         "example": "2022-01-31T23:19:01Z"
+                    },
+                    "functionNamespace": {
+                        "type": "string",
+                        "description": "Optional Namespace prefix for the functions"
+                    },
+                    "invokingNamespace": {
+                        "type": "string",
+                        "description": "Optional Namespace prefix for the invoking apex code"
                     }
                 },
                 "required": [
@@ -155,6 +167,10 @@
                     "stack": {
                         "type": "string",
                         "description": "Language-specific error stack trace to help developer diagnose issues, null/undefined if no error"
+                    },
+                    "errorMessage": {
+                        "type": "string",
+                        "description": "Optional error message for failed function invocations"
                     }
                 },
                 "required": [

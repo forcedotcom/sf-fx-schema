@@ -39,6 +39,10 @@ export class UserContext {
     * MyDomain URL of Salesforce appserver that invoked function
     */
     'orgDomainUrl'?: string;
+    /**
+    * Instance where organization is hosted
+    */
+    'salesforceInstance'?: string;
 
     static discriminator: string | undefined = undefined;
 
@@ -71,6 +75,11 @@ export class UserContext {
         {
             "name": "orgDomainUrl",
             "baseName": "orgDomainUrl",
+            "type": "string"
+        },
+        {
+            "name": "salesforceInstance",
+            "baseName": "salesforceInstance",
             "type": "string"
         }    ];
 

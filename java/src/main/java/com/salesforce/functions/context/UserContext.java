@@ -37,7 +37,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   UserContext.JSON_PROPERTY_ON_BEHALF_OF_USER_ID,
   UserContext.JSON_PROPERTY_USERNAME,
   UserContext.JSON_PROPERTY_SALESFORCE_BASE_URL,
-  UserContext.JSON_PROPERTY_ORG_DOMAIN_URL
+  UserContext.JSON_PROPERTY_ORG_DOMAIN_URL,
+  UserContext.JSON_PROPERTY_SALESFORCE_INSTANCE
 })
 @javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UserContext {
@@ -58,6 +59,9 @@ public class UserContext {
 
   public static final String JSON_PROPERTY_ORG_DOMAIN_URL = "orgDomainUrl";
   private URI orgDomainUrl;
+
+  public static final String JSON_PROPERTY_SALESFORCE_INSTANCE = "salesforceInstance";
+  private String salesforceInstance;
 
   public UserContext() { 
   }
@@ -218,6 +222,32 @@ public class UserContext {
   }
 
 
+  public UserContext salesforceInstance(String salesforceInstance) {
+    this.salesforceInstance = salesforceInstance;
+    return this;
+  }
+
+   /**
+   * Instance where organization is hosted
+   * @return salesforceInstance
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Instance where organization is hosted")
+  @JsonProperty(JSON_PROPERTY_SALESFORCE_INSTANCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getSalesforceInstance() {
+    return salesforceInstance;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SALESFORCE_INSTANCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSalesforceInstance(String salesforceInstance) {
+    this.salesforceInstance = salesforceInstance;
+  }
+
+
   /**
    * Return true if this userContext object is equal to o.
    */
@@ -235,12 +265,13 @@ public class UserContext {
         Objects.equals(this.onBehalfOfUserId, userContext.onBehalfOfUserId) &&
         Objects.equals(this.username, userContext.username) &&
         Objects.equals(this.salesforceBaseUrl, userContext.salesforceBaseUrl) &&
-        Objects.equals(this.orgDomainUrl, userContext.orgDomainUrl);
+        Objects.equals(this.orgDomainUrl, userContext.orgDomainUrl) &&
+        Objects.equals(this.salesforceInstance, userContext.salesforceInstance);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(orgId, userId, onBehalfOfUserId, username, salesforceBaseUrl, orgDomainUrl);
+    return Objects.hash(orgId, userId, onBehalfOfUserId, username, salesforceBaseUrl, orgDomainUrl, salesforceInstance);
   }
 
   @Override
@@ -253,6 +284,7 @@ public class UserContext {
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("    salesforceBaseUrl: ").append(toIndentedString(salesforceBaseUrl)).append("\n");
     sb.append("    orgDomainUrl: ").append(toIndentedString(orgDomainUrl)).append("\n");
+    sb.append("    salesforceInstance: ").append(toIndentedString(salesforceInstance)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -29,6 +29,8 @@ type ResponseExtraInfo struct {
 	IsFunctionError *bool `json:"isFunctionError,omitempty"`
 	// Language-specific error stack trace to help developer diagnose issues, null/undefined if no error
 	Stack *string `json:"stack,omitempty"`
+	// Optional error message for failed function invocations
+	ErrorMessage *string `json:"errorMessage,omitempty"`
 }
 
 // NewResponseExtraInfo instantiates a new ResponseExtraInfo object
@@ -265,6 +267,38 @@ func (o *ResponseExtraInfo) SetStack(v string) {
 	o.Stack = &v
 }
 
+// GetErrorMessage returns the ErrorMessage field value if set, zero value otherwise.
+func (o *ResponseExtraInfo) GetErrorMessage() string {
+	if o == nil || o.ErrorMessage == nil {
+		var ret string
+		return ret
+	}
+	return *o.ErrorMessage
+}
+
+// GetErrorMessageOk returns a tuple with the ErrorMessage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResponseExtraInfo) GetErrorMessageOk() (*string, bool) {
+	if o == nil || o.ErrorMessage == nil {
+		return nil, false
+	}
+	return o.ErrorMessage, true
+}
+
+// HasErrorMessage returns a boolean if a field has been set.
+func (o *ResponseExtraInfo) HasErrorMessage() bool {
+	if o != nil && o.ErrorMessage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetErrorMessage gets a reference to the given string and assigns it to the ErrorMessage field.
+func (o *ResponseExtraInfo) SetErrorMessage(v string) {
+	o.ErrorMessage = &v
+}
+
 func (o ResponseExtraInfo) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -287,6 +321,9 @@ func (o ResponseExtraInfo) MarshalJSON() ([]byte, error) {
 	}
 	if o.Stack != nil {
 		toSerialize["stack"] = o.Stack
+	}
+	if o.ErrorMessage != nil {
+		toSerialize["errorMessage"] = o.ErrorMessage
 	}
 	return json.Marshal(toSerialize)
 }

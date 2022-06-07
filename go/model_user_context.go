@@ -27,6 +27,8 @@ type UserContext struct {
 	SalesforceBaseUrl string `json:"salesforceBaseUrl"`
 	// MyDomain URL of Salesforce appserver that invoked function
 	OrgDomainUrl *string `json:"orgDomainUrl,omitempty"`
+	// Instance where organization is hosted
+	SalesforceInstance *string `json:"salesforceInstance,omitempty"`
 }
 
 // NewUserContext instantiates a new UserContext object
@@ -210,6 +212,38 @@ func (o *UserContext) SetOrgDomainUrl(v string) {
 	o.OrgDomainUrl = &v
 }
 
+// GetSalesforceInstance returns the SalesforceInstance field value if set, zero value otherwise.
+func (o *UserContext) GetSalesforceInstance() string {
+	if o == nil || o.SalesforceInstance == nil {
+		var ret string
+		return ret
+	}
+	return *o.SalesforceInstance
+}
+
+// GetSalesforceInstanceOk returns a tuple with the SalesforceInstance field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UserContext) GetSalesforceInstanceOk() (*string, bool) {
+	if o == nil || o.SalesforceInstance == nil {
+		return nil, false
+	}
+	return o.SalesforceInstance, true
+}
+
+// HasSalesforceInstance returns a boolean if a field has been set.
+func (o *UserContext) HasSalesforceInstance() bool {
+	if o != nil && o.SalesforceInstance != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSalesforceInstance gets a reference to the given string and assigns it to the SalesforceInstance field.
+func (o *UserContext) SetSalesforceInstance(v string) {
+	o.SalesforceInstance = &v
+}
+
 func (o UserContext) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -229,6 +263,9 @@ func (o UserContext) MarshalJSON() ([]byte, error) {
 	}
 	if o.OrgDomainUrl != nil {
 		toSerialize["orgDomainUrl"] = o.OrgDomainUrl
+	}
+	if o.SalesforceInstance != nil {
+		toSerialize["salesforceInstance"] = o.SalesforceInstance
 	}
 	return json.Marshal(toSerialize)
 }

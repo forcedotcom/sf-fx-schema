@@ -38,7 +38,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   ResponseExtraInfo.JSON_PROPERTY_EXEC_TIME_MS,
   ResponseExtraInfo.JSON_PROPERTY_STATUS_CODE,
   ResponseExtraInfo.JSON_PROPERTY_IS_FUNCTION_ERROR,
-  ResponseExtraInfo.JSON_PROPERTY_STACK
+  ResponseExtraInfo.JSON_PROPERTY_STACK,
+  ResponseExtraInfo.JSON_PROPERTY_ERROR_MESSAGE
 })
 @javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ResponseExtraInfo {
@@ -62,6 +63,9 @@ public class ResponseExtraInfo {
 
   public static final String JSON_PROPERTY_STACK = "stack";
   private String stack;
+
+  public static final String JSON_PROPERTY_ERROR_MESSAGE = "errorMessage";
+  private String errorMessage;
 
   public ResponseExtraInfo() { 
   }
@@ -248,6 +252,32 @@ public class ResponseExtraInfo {
   }
 
 
+  public ResponseExtraInfo errorMessage(String errorMessage) {
+    this.errorMessage = errorMessage;
+    return this;
+  }
+
+   /**
+   * Optional error message for failed function invocations
+   * @return errorMessage
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "Optional error message for failed function invocations")
+  @JsonProperty(JSON_PROPERTY_ERROR_MESSAGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getErrorMessage() {
+    return errorMessage;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ERROR_MESSAGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setErrorMessage(String errorMessage) {
+    this.errorMessage = errorMessage;
+  }
+
+
   /**
    * Return true if this responseExtraInfo object is equal to o.
    */
@@ -266,12 +296,13 @@ public class ResponseExtraInfo {
         Objects.equals(this.execTimeMs, responseExtraInfo.execTimeMs) &&
         Objects.equals(this.statusCode, responseExtraInfo.statusCode) &&
         Objects.equals(this.isFunctionError, responseExtraInfo.isFunctionError) &&
-        Objects.equals(this.stack, responseExtraInfo.stack);
+        Objects.equals(this.stack, responseExtraInfo.stack) &&
+        Objects.equals(this.errorMessage, responseExtraInfo.errorMessage);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(requestId, resource, source, execTimeMs, statusCode, isFunctionError, stack);
+    return Objects.hash(requestId, resource, source, execTimeMs, statusCode, isFunctionError, stack, errorMessage);
   }
 
   @Override
@@ -285,6 +316,7 @@ public class ResponseExtraInfo {
     sb.append("    statusCode: ").append(toIndentedString(statusCode)).append("\n");
     sb.append("    isFunctionError: ").append(toIndentedString(isFunctionError)).append("\n");
     sb.append("    stack: ").append(toIndentedString(stack)).append("\n");
+    sb.append("    errorMessage: ").append(toIndentedString(errorMessage)).append("\n");
     sb.append("}");
     return sb.toString();
   }
