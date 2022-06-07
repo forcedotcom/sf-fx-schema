@@ -87,7 +87,7 @@ public class ContextUtilTest {
         assertEquals(url, ctx.getUserContext().getSalesforceBaseUrl());
         assertEquals(url, ctx.getUserContext().getOrgDomainUrl());
 
-        String reEncoded = ContextUtil.encodeSfContext(ctx);        
+        String reEncoded = ContextUtil.encodeSfContext(ctx);
         assertEquals(CE_SFCONTEXT, reEncoded);
     }
 
@@ -119,7 +119,7 @@ public class ContextUtilTest {
         OffsetDateTime odt = OffsetDateTime.of(2022, 2, 10, 17, 59, 11, 0, ZoneOffset.UTC);
         assertEquals(odt, ctx.getDeadline());
 
-        String reEncoded = ContextUtil.encodeSfFnContext(ctx); 
+        String reEncoded = ContextUtil.encodeSfFnContext(ctx);
         assertEquals(CE_SFFNCONTEXT, reEncoded);
     }
 
@@ -146,7 +146,7 @@ public class ContextUtilTest {
         String reEncoded = ContextUtil.encodeExtraInfo(xi);
         // Java URLEncoder escapes slashes (/) but python3 urllib (created sample above) does not.
         // Also Java URLEncoder escapes spaces with plus (+), urlllib used %20.
-        String expected = RESPONSE_EXTRA_INFO.replaceAll("/", "%2F").replaceAll("%20", "+");        
+        String expected = RESPONSE_EXTRA_INFO.replaceAll("/", "%2F").replaceAll("%20", "+");
         assertEquals(expected, reEncoded);
     }
 }
