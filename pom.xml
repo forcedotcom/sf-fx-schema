@@ -3,7 +3,7 @@
 
   <groupId>com.salesforce.functions</groupId>
   <artifactId>sf-fx-schema</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.2-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>com.salesforce.functions:sf-fx-schema</name>
@@ -37,6 +37,12 @@
       <organization>Salesforce.com, Inc.</organization>
       <organizationUrl>https://www.salesforce.com</organizationUrl>
     </developer>
+    <developer>
+      <name>Kiran Nair</name>
+      <email>knair@salesforce.com</email>
+      <organization>Salesforce.com, Inc.</organization>
+      <organizationUrl>https://www.salesforce.com</organizationUrl>
+    </developer>
   </developers>
 
   <scm>
@@ -50,6 +56,10 @@
       <id>ossrh</id>
       <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
   </distributionManagement>
 
   <dependencyManagement>
