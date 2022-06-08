@@ -158,7 +158,7 @@ https://central.sonatype.org/publish/publish-maven/#gpg-signed-components
     </profile>
 ```
 
-Once all those steps have been completed and validated, you should be able to publish.  Note
+Once all those steps have been completed (Including publisher access through JIRA) and validated, you should be able to publish.  Note
 that any 4xx error from oss.sonatype.org indicates a missing authentication, authorization,
 or signing step above.
 ```
